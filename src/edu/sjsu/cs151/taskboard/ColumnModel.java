@@ -1,5 +1,6 @@
 package edu.sjsu.cs151.taskboard;
 
-public class ColumnModel {
+import java.util.ArrayList;
 
+public class ColumnModel {
 }
