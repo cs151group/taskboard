@@ -2,6 +2,7 @@ package edu.sjsu.cs151.taskboard;
 
 import javafx.*;
 import javafx.event.*;
+import javafx.stage.Stage;
 /**
  * Handles the event when the "Login" Button is pressed.
  *
@@ -9,10 +10,12 @@ import javafx.event.*;
 public class LoginButtonController implements EventHandler<ActionEvent> {
 	private String username;
 	private String password;
+	private Stage primary;
 
-	public LoginButtonController(String username, String password) {
+	public LoginButtonController(Stage primary, String username, String password) {
 		// TODO If necessary, add more parameters to this constructor.
 		// For example, do we need any other information about LoginView?
+		this.primary = primary;
 		this.username = username;
 		this.password = password;
 	}

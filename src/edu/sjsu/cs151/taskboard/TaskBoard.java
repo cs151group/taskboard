@@ -1,10 +1,18 @@
 package edu.sjsu.cs151.taskboard;
 
-public class TaskBoard {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class TaskBoard extends Application {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		launch(args);
+	}
+	
+	@Override
+	public void start(Stage primaryStage) {
+		LoginView loginView = new LoginView(primaryStage);
+		loginView.load();
 	}
 
 }

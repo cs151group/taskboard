@@ -22,13 +22,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
-public class LoginView extends Application {
-
-	public static void main(String[] args) {
-        launch(args);
-    }
+public class LoginView {
+	
+	private Stage primaryStage;
+	
+	public LoginView(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
     
-    public void start(Stage primaryStage) {
+    public void load() {
         primaryStage.setTitle("Task Board Login");
         
         GridPane grid = new GridPane();
@@ -63,11 +65,9 @@ public class LoginView extends Application {
         GridPane.setConstraints(loginButton, 2, 2);
         grid.getChildren().add(loginButton);
         loginButton.setOnAction(
-        		new LoginButtonController(usernameField.getText(), passwordFiled.getText()));
+        		new LoginButtonController(primaryStage, usernameField.getText(), passwordFiled.getText()));
         
-
-
-        primaryStage.setScene(new Scene(grid, 300, 100));
+        primaryStage.setScene(new Scene(grid));
         primaryStage.show();
     }
 }
