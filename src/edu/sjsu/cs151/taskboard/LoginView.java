@@ -62,7 +62,8 @@ public class LoginView extends Application {
         loginButton.setText("Login");
         GridPane.setConstraints(loginButton, 2, 2);
         grid.getChildren().add(loginButton);
-        loginButton.setOnAction(new LoginButtonController());
+        loginButton.setOnAction(
+        		new LoginButtonController(usernameField.getText(), passwordFiled.getText()));
         
 
 
