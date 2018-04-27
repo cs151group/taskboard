@@ -5,9 +5,10 @@ package edu.sjsu.cs151.taskboard;
  * want to have reusable ColumnView and TaskView classes. These could be
  * implemented as inner classes or as separate external classes.
  * 
+ * 
  */
 
-// TODO: TaskBoardView should extend something
+// TODO: TaskBoardView should extend something so it can be drawn in JavaFX
 
 public class TaskBoardView {
 	private TaskBoardModel model;
@@ -17,11 +18,21 @@ public class TaskBoardView {
 		// TODO: Initialize the view using the appropriate model objects.
 	}
 
+	// TODO: InnerColumnView should extend something so it can be drawn in JavaFX
 	private class InnerColumnView {
+		private ColumnModel colModel;
 
+		public InnerColumnView(ColumnModel columnModel) {
+			this.colModel = columnModel;
+		}
 	}
 
+	// TODO: InnerTaskView should extend something so it can be drawn in JavaFX
 	private class InnerTaskView {
+		private TaskModel taskModel;
 
+		public InnerTaskView(TaskModel task) {
+			this.taskModel = taskModel;
+		}
 	}
 }
