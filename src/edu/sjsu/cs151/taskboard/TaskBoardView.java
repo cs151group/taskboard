@@ -1,8 +1,12 @@
 package edu.sjsu.cs151.taskboard;
 
+import java.util.ArrayList;
+
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 /*
  * This is likely the most complicated view we have in the program. We probably
@@ -25,8 +29,8 @@ public class TaskBoardView {
 	
 	 public void load() { 
 		
-		 
-        primaryStage.setScene(new Scene(ds));
+		
+        primaryStage.setScene(new Scene(new InnerTaskView(new TaskModel("Test"))));
         primaryStage.show();
 	 }
 	 
@@ -45,10 +49,27 @@ public class TaskBoardView {
 		private TaskModel taskModel;
 
 		public InnerTaskView(TaskModel task) {
-			this.taskModel = taskModel;
+			// TODO: Make this look better
+			this.taskModel = task;
+			this.setOrientation(Orientation.VERTICAL);
+			Text name = new Text(taskModel.getName());
+			Text desc = new Text(taskModel.getDescription());
+			Text date = new Text("Due: " + taskModel.getDueDate().toString());
+			this.getChildren().add(name);
+			this.getChildren().add(desc);
+			this.getChildren().add(date);
 			
+			FlowPane tagView = new FlowPane(Orientation.HORIZONTAL);
+			ArrayList<String> tags = taskModel.getTags();
+			
+			// TODO: Set colors for each tag
+			if (tags != null) {
+				for (String t : tags) {
+					tagView.getChildren().add(new Text("#" + t));
+				}
+				this.getChildren().add(tagView);
+			}
 		}
 		
-		// TODO: Use a FlowPane for tags
 	}
 }

@@ -43,4 +43,8 @@ public class TaskModel {
     public void removeTag(String tag) {
         tags.remove(tag);
     }
+    
+    public ArrayList<String> getTags() {
+		return tags;
+	}
 }
