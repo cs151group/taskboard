@@ -41,7 +41,7 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 			 * If it exists, call the TaskboardModel(filename) constructor instead.
 			 */
 			
-			TaskBoardView view = new TaskBoardView(model);
+			// TODO: TaskBoardView view = new TaskBoardView(model);
 			// TODO: set the view visible somehow
 		}
 		else {
