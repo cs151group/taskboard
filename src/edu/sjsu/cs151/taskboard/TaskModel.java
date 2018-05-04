@@ -19,26 +19,28 @@ public class TaskModel {
         this.tags = tags;
     }
 
+    public TaskModel(String name) { this.name = name; }
+
     public String getName() {
         return name;
     }
 
-    public void setDescription(String d) { this.description = d; }
+    public void setDescription(String d) { description = d; }
 
     public String getDescription() { return description; }
 
-    public void setDueDate(LocalDate date) { this.dueDate = date; }
+    public void setDueDate(LocalDate date) { dueDate = date; }
 
     public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void addTag(String tag) { this.tags.add(tag); }
+    public void addTag(String tag) { tags.add(tag); }
 
-    // TODO: 5/3/18 Determine how we will allow a user to remove a tag. 
+    // TODO: 5/3/18 Determine how we will allow a user to remove a tag.
     // The best thing to do would be to allow them to click an "x" on the tag
     // but we may not want to choose to implement that (depends on time).
-    public void removeTag() {
-
+    public void removeTag(String tag) {
+        tags.remove(tag);
     }
 }
