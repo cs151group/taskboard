@@ -6,18 +6,20 @@ public class TaskBoardModel {
 	private String name = "TaskBoard1";
 	private ArrayList<ProjectModel> projects;
 	private String fileName;
+	
 
 	public TaskBoardModel(String filePath) {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TaskBoardModel() {
-		// TODO Constructor stub. can be used for brand new taskboard
+	public TaskBoardModel(String name, ArrayList<ProjectModel> projects, String fileName) {
+		this.name = name;
+		this.projects = projects;
+		this.fileName = fileName;
 	}
 
 	public void saveTaskBoard() {
-		// TODO Auto-generated method stub
-
+		// TODO: 5/3/18 XML Shit goes here 
 	}
 
 	public void saveProject() {
@@ -25,13 +27,13 @@ public class TaskBoardModel {
 
 	}
 
+	// TODO: 5/3/18 do we need to do this here?
 	public void editProject() {
-		// TODO Auto-generated method stub
-
 	}
 
-	public void addProject() {
+	public void addProject(ProjectModel p) {
 		// TODO Auto-generated method stub
+		projects.add(p);
 
 	}
 
