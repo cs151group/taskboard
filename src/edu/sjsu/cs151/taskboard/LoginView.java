@@ -54,10 +54,10 @@ public class LoginView {
         GridPane.setConstraints(passwordText, 0, 1);
         grid.getChildren().add(passwordText);
         
-        final TextField passwordFiled = new TextField();
-        passwordFiled.setPromptText("Enter password");
-        GridPane.setConstraints(passwordFiled, 1, 1);
-        grid.getChildren().add(passwordFiled);
+        final TextField passwordField = new TextField();
+        passwordField.setPromptText("Enter password");
+        GridPane.setConstraints(passwordField, 1, 1);
+        grid.getChildren().add(passwordField);
         
 
         Button loginButton = new Button();
@@ -65,7 +65,7 @@ public class LoginView {
         GridPane.setConstraints(loginButton, 2, 2);
         grid.getChildren().add(loginButton);
         loginButton.setOnAction(
-        		new LoginButtonController(primaryStage, usernameField.getText(), passwordFiled.getText()));
+        		new LoginButtonController(primaryStage, usernameField.getText(), passwordField.getText()));
         
         primaryStage.setScene(new Scene(grid));
         primaryStage.show();
