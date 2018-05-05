@@ -21,6 +21,6 @@ public class MyTester extends Application {
 		TaskBoardModel board = new TaskBoardModel("Board1");
 		
 		TaskBoardView testView = new TaskBoardView(board, primaryStage);
-		testView.load();
+		testView.test();
 	}
 }

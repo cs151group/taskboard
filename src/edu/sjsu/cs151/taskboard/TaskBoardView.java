@@ -33,26 +33,42 @@ public class TaskBoardView {
 	}
 	
 	
-	 public void load() { 
-		// Test code //
-		 
-		 TaskModel task = new TaskModel("Name test", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
-		 		+ "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-		 		+ "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris "
-		 		+ "nisi ut aliquip ex ea commodo consequat.", LocalDate.of(2018, 5, 20), new ArrayList<String>());
-        primaryStage.setScene(new Scene(new InnerTaskView(task)));
-        primaryStage.show();
-        
-        // End test code
-	 }
+	public void load() {
+		
+	}
+	
+	/**
+	 * This is used to test during development of this class. We can remove later if necessary.
+	 */
+	public void test() {
+		TaskModel task = new TaskModel("Lorem Ipsum",
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
+						+ "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+						+ "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris "
+						+ "nisi ut aliquip ex ea commodo consequat.",
+				LocalDate.of(2018, 5, 20), new ArrayList<String>());
+		TaskModel task2 = new TaskModel("Complete TaskBoardView",
+				"The TaskBoardView should have multiple columns with tasks. It will also have the option to",
+				LocalDate.of(2018, 5, 19), new ArrayList<String>());
+		ColumnModel col = new ColumnModel("In Progress", new ArrayList<TaskModel>());
+		col.addTask(task);
+		col.addTask(task2);
+		primaryStage.setScene(new Scene(new InnerColumnView(col)));
+		primaryStage.show();
+	}
 	 
 	 
-	// TODO: InnerColumnView should extend something so it can be drawn in JavaFX
-	private class InnerColumnView {
-		private ColumnModel colModel;
+	private class InnerColumnView extends VBox {
+		private ColumnModel colModel; // Do we need to save this as instance variable?
+		
+		// TODO: Visual styling
 
 		public InnerColumnView(ColumnModel columnModel) {
 			this.colModel = columnModel;
+			for(TaskModel t : colModel.getTasks()) {
+				InnerTaskView nextTask = new InnerTaskView(t);
+				this.getChildren().add(nextTask);
+			}
 			
 		}
 	}
@@ -65,8 +81,11 @@ public class TaskBoardView {
 
 		public InnerTaskView(TaskModel task) {
 			
+			/*
+			 * TODO: Make this look better. Font style, background color, etc. Consider
+			 * using inline CSS with this.setStyle.
+			 */
 			
-			// TODO: Make this look better
 			//this.setPrefWrapLength(COLUMN_WIDTH - 100);
 			this.setStyle("-fx-border-color: black");
 			this.setPrefWidth(COLUMN_WIDTH);
@@ -85,7 +104,7 @@ public class TaskBoardView {
 			FlowPane tagView = new FlowPane(Orientation.HORIZONTAL);
 			ArrayList<String> tags = taskModel.getTags();
 			
-			// TODO: Set colors for each tag
+			// TODO: Set colors for each tag maybe?
 			if (tags != null) {
 				for (String t : tags) {
 					tagView.getChildren().add(new Text("#" + t));

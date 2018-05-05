@@ -20,4 +20,8 @@ public class ColumnModel {
 	}
 	
 	public void removeTask(TaskModel task) { tasks.remove(task); }
+	
+	public ArrayList<TaskModel> getTasks() {
+		return tasks;
+	}
 }
