@@ -35,7 +35,7 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 		 * 			Either as a pop-up or a message at the top of the login window
 		 */
 		if(username.equals("admin") && password.equals("admin")) {
-			TaskBoardModel model = new TaskBoardModel();
+			TaskBoardModel model = new TaskBoardModel("New Board"); // TODO: This constructor might be wrong
 			/*
 			 * TODO: Add new branch if user XML data already exists.
 			 * If it exists, call the TaskboardModel(filename) constructor instead.
