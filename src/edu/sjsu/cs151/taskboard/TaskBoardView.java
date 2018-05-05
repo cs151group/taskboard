@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -45,13 +46,28 @@ public class TaskBoardView {
 	
 	
 	public void load() {
-		// TODO: fix load()
+		primaryStage.setTitle(model.getName());
+		
+		HBox columnList = new HBox();
+		ScrollPane mainPane = new ScrollPane(columnList);
+		
+		ProjectModel currentProject = model.getCurrentProject();
+		for(ColumnModel c : currentProject.getColumns()) {
+			InnerColumnView colView = new InnerColumnView(c);
+			columnList.getChildren().add(colView);
+		}
+		
+        primaryStage.setScene(new Scene(mainPane));
+        primaryStage.show();
+		
 	}
 	
 	/**
 	 * This is used to test during development of this class. We can remove later if necessary.
 	 */
-	public void test() {
+	public void testColumn() {
+		
+		// Testing rendering of a single column
 		TaskModel task = new TaskModel("Lorem Ipsum",
 				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
 						+ "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
@@ -113,8 +129,7 @@ public class TaskBoardView {
 		public InnerTaskView(TaskModel task) {
 			
 			/*
-			 * TODO: Make this look better. Font style, background color, etc. Consider
-			 * using inline CSS with this.setStyle.
+			 * TODO: Make this look better. Font style, background color, etc. 
 			 * https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 			 */
 			
@@ -127,6 +142,7 @@ public class TaskBoardView {
 			name.setFont(new Font("Verdana", 18));
 			Text desc = new Text(taskModel.getDescription());
 			desc.setWrappingWidth(COLUMN_WIDTH);
+			// TODO: Change date text to more readable format
 			Text date = new Text("Due: " + taskModel.getDueDate().toString());
 			this.getChildren().add(name);
 			this.getChildren().add(desc);

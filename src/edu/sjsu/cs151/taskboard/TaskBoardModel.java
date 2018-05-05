@@ -36,5 +36,13 @@ public class TaskBoardModel {
 		projects.add(p);
 
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public ProjectModel getCurrentProject() {
+		return projects.get(0);
+	}
 
 }

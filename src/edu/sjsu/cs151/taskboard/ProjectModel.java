@@ -38,5 +38,8 @@ public class ProjectModel {
 	public void addTask(ColumnModel col, TaskModel task) {
 		col.addTask(task);
 	}
-
+	
+	public ArrayList<ColumnModel> getColumns() {
+		return columns;
+	}
 }
