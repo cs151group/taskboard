@@ -26,6 +26,10 @@ public class TaskBoardView {
 	private TaskBoardModel model;
 	
 	private static final double COLUMN_WIDTH = 300;
+	private static final double COLUMN_PADDING = 10;
+	private static final double COLUMN_ITEM_SPACING = 10;
+	private static final double TASK_PADDING = 10;
+	private static final double TASK_ITEM_SPACING = 5;
 	
 	public TaskBoardView(TaskBoardModel model, Stage primaryStage) {
 		this.model = model;
@@ -34,7 +38,7 @@ public class TaskBoardView {
 	
 	
 	public void load() {
-		
+		// TODO: fix load()
 	}
 	
 	/**
@@ -69,15 +73,15 @@ public class TaskBoardView {
 				InnerTaskView nextTask = new InnerTaskView(t);
 				this.getChildren().add(nextTask);
 			}
-			
+			this.setSpacing(COLUMN_ITEM_SPACING);
+			this.setPadding(new Insets(COLUMN_PADDING));
+			this.setPrefWidth(COLUMN_WIDTH);
 		}
 	}
 
 	
 	private class InnerTaskView extends VBox {
 		private TaskModel taskModel;
-		private static final double TASK_PADDING = 10;
-		private static final double TASK_ITEM_SPACING = 5;
 
 		public InnerTaskView(TaskModel task) {
 			
@@ -88,8 +92,6 @@ public class TaskBoardView {
 			
 			//this.setPrefWrapLength(COLUMN_WIDTH - 100);
 			this.setStyle("-fx-border-color: black");
-			this.setPrefWidth(COLUMN_WIDTH);
-			this.setMaxWidth(COLUMN_WIDTH);
 			this.setPadding(new Insets(TASK_PADDING));
 			this.setSpacing(TASK_ITEM_SPACING);
 			this.taskModel = task;
