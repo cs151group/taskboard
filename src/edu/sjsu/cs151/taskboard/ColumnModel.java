@@ -24,4 +24,8 @@ public class ColumnModel {
 	public ArrayList<TaskModel> getTasks() {
 		return tasks;
 	}
+	
+	public String getName() {
+		return name;
+	}
 }

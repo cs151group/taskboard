@@ -6,10 +6,16 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 /*
@@ -25,6 +31,7 @@ public class TaskBoardView {
 	private Stage primaryStage;
 	private TaskBoardModel model;
 	
+	private static final double BOARD_COL_SPACING = 10;
 	private static final double COLUMN_WIDTH = 300;
 	private static final double COLUMN_PADDING = 10;
 	private static final double COLUMN_ITEM_SPACING = 10;
@@ -52,11 +59,19 @@ public class TaskBoardView {
 						+ "nisi ut aliquip ex ea commodo consequat.",
 				LocalDate.of(2018, 5, 20), new ArrayList<String>());
 		TaskModel task2 = new TaskModel("Complete TaskBoardView",
-				"The TaskBoardView should have multiple columns with tasks. It will also have the option to",
+				"The TaskBoardView should have multiple columns with tasks. There will also be a title bar with options.",
 				LocalDate.of(2018, 5, 19), new ArrayList<String>());
+		TaskModel task3 = new TaskModel("Cattle ",
+				"Cattle is a word for certain mammals that belong to the genus Bos. "
+				+ "Cattle may be cows, bulls, oxen, heifers, steers, bullocks or calves. "
+				+ "Cattle are the most common type of large domesticated hoofed animals. "
+				+ "They are a prominent modern member of the subfamily Bovinae.",
+				LocalDate.of(2018, 5, 19), new ArrayList<String>());
+		// 
 		ColumnModel col = new ColumnModel("In Progress", new ArrayList<TaskModel>());
 		col.addTask(task);
 		col.addTask(task2);
+		col.addTask(task3);
 		primaryStage.setScene(new Scene(new InnerColumnView(col)));
 		primaryStage.show();
 	}
@@ -69,6 +84,18 @@ public class TaskBoardView {
 
 		public InnerColumnView(ColumnModel columnModel) {
 			this.colModel = columnModel;
+			
+			// Handling column title
+			HBox titleBox = new HBox();
+			Text colTitle = new Text(colModel.getName());
+			colTitle.setFill(Color.GHOSTWHITE);
+			colTitle.setFont(new Font(24));
+			titleBox.getChildren().add(colTitle);
+			titleBox.setStyle("-fx-background-color: steelblue");
+			titleBox.setPrefWidth(COLUMN_WIDTH);
+			titleBox.setPadding(new Insets(10));
+			this.getChildren().add(titleBox);
+			
 			for(TaskModel t : colModel.getTasks()) {
 				InnerTaskView nextTask = new InnerTaskView(t);
 				this.getChildren().add(nextTask);
@@ -88,14 +115,16 @@ public class TaskBoardView {
 			/*
 			 * TODO: Make this look better. Font style, background color, etc. Consider
 			 * using inline CSS with this.setStyle.
+			 * https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 			 */
 			
 			//this.setPrefWrapLength(COLUMN_WIDTH - 100);
-			this.setStyle("-fx-border-color: black");
+			this.setStyle("-fx-background-color: whitesmoke");
 			this.setPadding(new Insets(TASK_PADDING));
 			this.setSpacing(TASK_ITEM_SPACING);
 			this.taskModel = task;
 			Text name = new Text(taskModel.getName());
+			name.setFont(new Font("Verdana", 18));
 			Text desc = new Text(taskModel.getDescription());
 			desc.setWrappingWidth(COLUMN_WIDTH);
 			Text date = new Text("Due: " + taskModel.getDueDate().toString());

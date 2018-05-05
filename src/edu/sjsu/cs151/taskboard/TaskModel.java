@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TaskModel {
     private String name = "Task1";
     private String description;
-    private LocalDate dueDate = LocalDate.now();
+    private LocalDate dueDate;
     private ArrayList<String> tags;
 
     public TaskModel(String name, String description, LocalDate dueDate, ArrayList<String> tags) {
