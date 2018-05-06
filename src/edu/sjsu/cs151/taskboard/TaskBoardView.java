@@ -158,6 +158,8 @@ public class TaskBoardView {
 				}
 				this.getChildren().add(tagView);
 			}
+			
+			this.setOnMouseClicked(new EditTaskController(primaryStage, taskModel, TaskBoardView.this));
 		}
 		
 	}
