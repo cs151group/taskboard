@@ -11,8 +11,16 @@ public class TaskBoard extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		LoginView loginView = new LoginView(primaryStage);
-		loginView.load();
+	//	LoginView loginView = new LoginView(primaryStage);
+	//	loginView.load();
+		
+		//This is to test Project View
+		ProjectView projView = new ProjectView(primaryStage);
+		projView.load();
+		
 	}
+	
+
+	
 
 }
