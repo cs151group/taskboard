@@ -76,15 +76,8 @@ public class TaskBoardView {
 		saveBoardButton.setOnAction(new SaveBoardController());
 		loadBoardButton.setOnAction(new LoadBoardController());
 		
-		/* This one seemed pretty simple so I made it a lambda.
-		 * We can move it to another class if we need to.
-		 * - Micah 
-		 */
-		logOutButton.setOnAction((e) -> {
-			model.saveTaskBoard();
-			LoginView view = new LoginView(primaryStage);
-			view.load();
-		});
+
+		logOutButton.setOnAction(new LogoutController(primaryStage, model));
 		
 		topBar.getChildren().add(editProjButton);
 		topBar.getChildren().add(deleteProjButton);
