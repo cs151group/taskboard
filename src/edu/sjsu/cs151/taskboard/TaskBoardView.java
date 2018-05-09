@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -38,6 +40,7 @@ public class TaskBoardView {
 	private static final double COLUMN_ITEM_SPACING = 10;
 	private static final double TASK_PADDING = 10;
 	private static final double TASK_ITEM_SPACING = 5;
+	private static final double TOP_BAR_ITEM_SPACING = 10;
 	
 	public TaskBoardView(TaskBoardModel model, Stage primaryStage) {
 		this.model = model;
@@ -46,13 +49,44 @@ public class TaskBoardView {
 	
 	
 	public void load() {
-		primaryStage.setTitle(model.getName());
+		primaryStage.setTitle("Taskboard: " + model.getName());
+		VBox mainPane = new VBox();
+		
+		// === TOP BAR === //
+		HBox topBar = new HBox();
+		topBar.setSpacing(TOP_BAR_ITEM_SPACING);
+		
+		// TODO: Project select dropdown
+		
+		Button editProjButton = new Button("Edit");
+		Button saveProjButton = new Button("Save");
+		Button deleteProjButton = new Button("Delete");
+		Button createProjButton = new Button("Create new");
+		Separator topSep = new Separator(Orientation.VERTICAL);
+		Button loadBoardButton = new Button("Load...");
+		Button logOutButton = new Button("Logout");
+		
+		// TODO: Create event listeners for top bar
+		
+		topBar.getChildren().add(editProjButton);
+		topBar.getChildren().add(saveProjButton);
+		topBar.getChildren().add(deleteProjButton);
+		topBar.getChildren().add(createProjButton);
+		topBar.getChildren().add(topSep);
+		topBar.getChildren().add(loadBoardButton);
+		topBar.getChildren().add(logOutButton);
+		
+		// TODO: Add visual style to top bar
+		
+		mainPane.getChildren().add(topBar);
+		
+		// === COLUMNS === //
 		
 		HBox columnList = new HBox();
-		ScrollPane mainPane = new ScrollPane(columnList);
+		ScrollPane scrollPane = new ScrollPane(columnList);
 		
 		// Allows the scroll pane to be moved by mouse dragging
-		mainPane.setPannable(true);
+		scrollPane.setPannable(true);
 		// We could potentially use mainPane.setOnScroll to make the scroll wheel go horizontal
 
 		ProjectModel currentProject = model.getCurrentProject();
@@ -61,13 +95,16 @@ public class TaskBoardView {
 			columnList.getChildren().add(colView);
 		}
 		columnList.setSpacing(BOARD_COL_SPACING);
-		
-		// // arbitrary size to test scrollpane. Uncomment the following line to test
-		// mainPane.setMaxSize(800, 600);
-		
-		
-        primaryStage.setScene(new Scene(mainPane));
-        primaryStage.show();
+
+		/* Arbitrary size to test scrollpane.
+		 * The actual width / height will be determined by the title bar dimensions.
+		 */
+		mainPane.setMaxSize(1200, 1080);
+
+		mainPane.getChildren().add(scrollPane);
+
+		primaryStage.setScene(new Scene(mainPane));
+		primaryStage.show();
 		
 	}
 	
