@@ -1,5 +1,7 @@
 package edu.sjsu.cs151.taskboard;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javafx.*;
@@ -17,7 +19,7 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 	private Stage primary;
 	private TextField userField;
 	private TextField passField;
-
+	private static final String DEFAULT_FILE_PATH = "TaskBoard1.xml";
 	
 	public LoginButtonController(Stage primaryStage, TextField userField, TextField passField) {
 		this.primary = primaryStage;
@@ -48,22 +50,39 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 			errorAlert.setHeaderText("Invalid login");
 			errorAlert.setContentText("Please enter a username and password.");
 			errorAlert.show();
-		}
-	else if(username.trim().equals("admin") && password.trim().equals("admin")) {
-			// If file exists...
-				// Load from filename
-			// else : 
-				TaskBoardModel model = new TaskBoardModel("TaskBoard1", new ArrayList<>(), "board.dat");
-				// TODO: ProjectView needs to take the TaskBoardModel as a parameter
-				ProjectView newProj = new ProjectView(primary);
-				newProj.load();
-		}
-		else {
+		} else if (username.trim().equals("admin") && password.trim().equals("admin")) {
+			login();
+		} else {
 			Alert errorAlert = new Alert(AlertType.ERROR);
 			errorAlert.setHeaderText("Invalid login");
 			errorAlert.setContentText("Incorrect username / password combination.");
 			errorAlert.show();
 		}
+	}
+
+	private void login() {
+		
+		File defaultFile = new File(DEFAULT_FILE_PATH);
+		File folder = new File("");
+		File[] matches = folder.listFiles((path) -> path.getName().matches(".*.xml"));
+		// If file exists...
+		if (defaultFile.exists()) {
+			TaskBoardModel model = new TaskBoardModel(DEFAULT_FILE_PATH);
+			TaskBoardView view = new TaskBoardView(model, primary);
+			view.load();
+		}
+		else if (matches.length != 0) {
+			TaskBoardModel model = new TaskBoardModel(matches[0].getName());
+			TaskBoardView view = new TaskBoardView(model, primary);
+			view.load();
+		}
+		else {
+			TaskBoardModel model = new TaskBoardModel("TaskBoard1", new ArrayList<>(), DEFAULT_FILE_PATH);
+			// TODO: ProjectView needs to take the TaskBoardModel as a parameter
+			ProjectView newProj = new ProjectView(primary);
+			newProj.load();
+		}
+
 	}
 
 }
