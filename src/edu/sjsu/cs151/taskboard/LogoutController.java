@@ -35,7 +35,7 @@ public class LogoutController implements EventHandler<ActionEvent> {
 				fnfAlert.setContentText("The file did not successfully save.");
 				e.printStackTrace();
 				
-				// TODO: Fix this excweption handling. Have user pick new file
+				// TODO: Fix this exception handling. Have user pick new file
 			}
 			LoginView view = new LoginView(primary);
 			view.load();
