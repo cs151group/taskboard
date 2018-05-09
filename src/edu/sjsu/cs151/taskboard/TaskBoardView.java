@@ -51,11 +51,20 @@ public class TaskBoardView {
 		HBox columnList = new HBox();
 		ScrollPane mainPane = new ScrollPane(columnList);
 		
+		// Allows the scroll pane to be moved by mouse dragging
+		mainPane.setPannable(true);
+		// We could potentially use mainPane.setOnScroll to make the scroll wheel go horizontal
+
 		ProjectModel currentProject = model.getCurrentProject();
 		for(ColumnModel c : currentProject.getColumns()) {
 			InnerColumnView colView = new InnerColumnView(c);
 			columnList.getChildren().add(colView);
 		}
+		columnList.setSpacing(BOARD_COL_SPACING);
+		
+		// // arbitrary size to test scrollpane. Uncomment the following line to test
+		// mainPane.setMaxSize(800, 600);
+		
 		
         primaryStage.setScene(new Scene(mainPane));
         primaryStage.show();
@@ -92,33 +101,39 @@ public class TaskBoardView {
 		primaryStage.show();
 	}
 	 
-	 
+	// TODO: Make column view a scrollpane? Reference trello's column scrolling for an example.
 	private class InnerColumnView extends VBox {
 		private ColumnModel colModel; // Do we need to save this as instance variable?
 		
-		// TODO: Visual styling
+		// TODO: Finalize visual appearance
 
 		public InnerColumnView(ColumnModel columnModel) {
+			
 			this.colModel = columnModel;
+			
+			this.setPrefWidth(COLUMN_WIDTH);
 			
 			// Handling column title
 			HBox titleBox = new HBox();
 			Text colTitle = new Text(colModel.getName());
-			colTitle.setFill(Color.GHOSTWHITE);
-			colTitle.setFont(new Font(24));
 			titleBox.getChildren().add(colTitle);
-			titleBox.setStyle("-fx-background-color: steelblue");
-			titleBox.setPrefWidth(COLUMN_WIDTH);
-			titleBox.setPadding(new Insets(10));
 			this.getChildren().add(titleBox);
 			
+			// Adding all task views to the column view
 			for(TaskModel t : colModel.getTasks()) {
 				InnerTaskView nextTask = new InnerTaskView(t);
 				this.getChildren().add(nextTask);
 			}
+
+			// Arbitrary style info. Can be changed as desired //
+			colTitle.setFill(Color.GHOSTWHITE);
+			colTitle.setFont(new Font(24));
+			titleBox.setStyle("-fx-background-color: steelblue");
+			titleBox.setPadding(new Insets(10));
 			this.setSpacing(COLUMN_ITEM_SPACING);
 			this.setPadding(new Insets(COLUMN_PADDING));
-			this.setPrefWidth(COLUMN_WIDTH);
+			
+			
 		}
 	}
 
@@ -133,32 +148,43 @@ public class TaskBoardView {
 			 * https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 			 */
 			
-			//this.setPrefWrapLength(COLUMN_WIDTH - 100);
-			this.setStyle("-fx-background-color: whitesmoke");
-			this.setPadding(new Insets(TASK_PADDING));
-			this.setSpacing(TASK_ITEM_SPACING);
 			this.taskModel = task;
+			
 			Text name = new Text(taskModel.getName());
-			name.setFont(new Font("Verdana", 18));
 			Text desc = new Text(taskModel.getDescription());
-			desc.setWrappingWidth(COLUMN_WIDTH);
+			
+			// Making sure description text wraps properly
+			desc.setWrappingWidth(COLUMN_WIDTH - TASK_PADDING);
+			
 			// TODO: Change date text to more readable format
 			Text date = new Text("Due: " + taskModel.getDueDate().toString());
+			
+			// Adding elements to task
 			this.getChildren().add(name);
 			this.getChildren().add(desc);
 			this.getChildren().add(date);
 			
+			// tagView is the list of all tags.
 			FlowPane tagView = new FlowPane(Orientation.HORIZONTAL);
 			ArrayList<String> tags = taskModel.getTags();
 			
 			// TODO: Set colors for each tag maybe?
+			// Looping through all tags
 			if (tags != null) {
 				for (String t : tags) {
 					tagView.getChildren().add(new Text("#" + t));
 				}
+				// Adding tagView to task
 				this.getChildren().add(tagView);
 			}
 			
+			// Arbitrary style info. Can be changed as desired. //
+			this.setStyle("-fx-background-color: whitesmoke");
+			this.setPadding(new Insets(TASK_PADDING));
+			this.setSpacing(TASK_ITEM_SPACING);
+			name.setFont(new Font("Verdana", 18));
+			
+			// Adding mouse click controller to go to edit task
 			this.setOnMouseClicked(new EditTaskController(primaryStage, taskModel, TaskBoardView.this));
 		}
 		
