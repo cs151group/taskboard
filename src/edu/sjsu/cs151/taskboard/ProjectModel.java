@@ -46,4 +46,8 @@ public class ProjectModel {
 	public String getName() {
 		return name;
 	}
+	
+	public void addColumn(ColumnModel c) {
+		columns.add(c);
+	}
 }

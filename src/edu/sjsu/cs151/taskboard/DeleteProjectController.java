@@ -34,6 +34,8 @@ public class DeleteProjectController implements EventHandler<ActionEvent> {
 		ProjectModel current = model.getCurrentProject();
 		model.deleteProject(current);
 		// TODO: Add case for if taskboard is now empty.
+		// At the moment it will break.
+		// It should switch to NewProjectView.
 		TaskBoardView view = new TaskBoardView(model, primaryStage);
 		view.load();
 	}
