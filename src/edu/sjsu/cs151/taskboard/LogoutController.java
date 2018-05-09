@@ -1,5 +1,6 @@
 package edu.sjsu.cs151.taskboard;
 
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;
@@ -26,7 +27,16 @@ public class LogoutController implements EventHandler<ActionEvent> {
 		sureAlert.setContentText("Are you sure you wish to log out?");
 		Optional<ButtonType> result = sureAlert.showAndWait();
 		if (result.isPresent() && result.get() == ButtonType.OK) {
-			model.saveTaskBoard();
+			try {
+				model.save();
+			} catch (FileNotFoundException e) {
+				Alert fnfAlert = new Alert(AlertType.ERROR);
+				fnfAlert.setHeaderText("File Error");
+				fnfAlert.setContentText("The file did not successfully save.");
+				e.printStackTrace();
+				
+				// TODO: Fix this excweption handling. Have user pick new file
+			}
 			LoginView view = new LoginView(primary);
 			view.load();
 		}

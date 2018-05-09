@@ -71,7 +71,7 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 			TaskBoardView view = new TaskBoardView(model, primary);
 			view.load();
 		}
-		else if (matches.length != 0) {
+		else if (matches != null && matches.length != 0) {
 			TaskBoardModel model = new TaskBoardModel(matches[0].getName());
 			TaskBoardView view = new TaskBoardView(model, primary);
 			view.load();
