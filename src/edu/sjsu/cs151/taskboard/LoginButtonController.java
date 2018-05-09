@@ -6,6 +6,7 @@ import javafx.*;
 import javafx.event.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 /**
@@ -13,18 +14,19 @@ import javafx.stage.Stage;
  *
  */
 public class LoginButtonController implements EventHandler<ActionEvent> {
-	private String username;
-	private String password;
 	private Stage primary;
+	private TextField userField;
+	private TextField passField;
 
-	public LoginButtonController(Stage primary, String username, String password) {
-		// TODO If necessary, add more parameters to this constructor.
-		// For example, do we need any other information about LoginView?
-		this.primary = primary;
-		this.username = username;
-		this.password = password;
-	}
 	
+	public LoginButtonController(Stage primaryStage, TextField userField, TextField passField) {
+		this.primary = primaryStage;
+		this.userField = userField;
+		this.passField = passField;
+	}
+
+
+
 	@Override
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
@@ -39,7 +41,15 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 		 * 		Create a message saying "Invalid username/password"
 		 * 			Either as a pop-up or a message at the top of the login window
 		 */
-		if(username.trim().equals("admin") && password.trim().equals("admin")) {
+		String username = userField.getText();
+		String password = passField.getText();
+		if (username == null | password == null | username.trim().equals("") | password.trim().equals("")) {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Invalid login");
+			errorAlert.setContentText("Please enter a username and password.");
+			errorAlert.show();
+		}
+	else if(username.trim().equals("admin") && password.trim().equals("admin")) {
 			// If file exists...
 				// Load from filename
 			// else : 

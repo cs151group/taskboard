@@ -2,7 +2,6 @@ package edu.sjsu.cs151.taskboard;
 
 //import java.awt.Insets;
 //import java.awt.TextField;
-import java.awt.*;
 //import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.application.Application;
@@ -46,7 +45,7 @@ public class LoginView {
         final TextField usernameField = new TextField();
         usernameField.setPromptText("Enter username");
         usernameField.setPrefColumnCount(10);
-        usernameField.getText();
+       // usernameField.getText();
         GridPane.setConstraints(usernameField, 1, 0);
         grid.getChildren().add(usernameField);
         
@@ -65,7 +64,7 @@ public class LoginView {
         GridPane.setConstraints(loginButton, 2, 2);
         grid.getChildren().add(loginButton);
         loginButton.setOnAction(
-        		new LoginButtonController(primaryStage, usernameField.getText(), passwordField.getText()));
+        		new LoginButtonController(primaryStage, usernameField, passwordField));
         
         primaryStage.setScene(new Scene(grid));
         primaryStage.show();
