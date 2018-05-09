@@ -2,6 +2,7 @@ package edu.sjsu.cs151.taskboard;
 
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
@@ -19,48 +20,46 @@ import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 
 public class ProjectView {
-	private Stage primaryStage;
-	private ArrayList<ColumnModel> columnList = new ArrayList<>();
-	
-	public ProjectView(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-	}
-	
-	public void load() 
-	{
-		primaryStage.setTitle("Create New Project");
-		
-		BorderPane border = new BorderPane();
-		GridPane grid = new GridPane();
-		
-		border.setCenter(addGridPane());
-		border.setBottom(addAnchorPane(grid));
-        
+    private Stage primaryStage;
+    private ArrayList<ColumnModel> columnList = new ArrayList<>();
+
+    public ProjectView(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    public void load() {
+        primaryStage.setTitle("Create New Project");
+
+        BorderPane border = new BorderPane();
+        GridPane grid = new GridPane();
+
+        border.setCenter(addGridPane());
+        border.setBottom(addAnchorPane(grid));
+
         primaryStage.setScene(new Scene(border));
         primaryStage.show();
-	}
-	
-	public GridPane addGridPane()
-	{
+    }
 
-		GridPane grid = new GridPane();
+    public GridPane addGridPane() {
+
+        GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setVgap(10);
         grid.setHgap(10);
-        
-       
-        Text nameText = new Text (10, 50, "Name");
+
+
+        Text nameText = new Text(10, 50, "Name");
         GridPane.setConstraints(nameText, 0, 0);
         grid.getChildren().add(nameText);
-        
+
         final TextField nameField = new TextField();
         nameField.setPromptText("Enter name");
         nameField.setPrefColumnCount(10);
         nameField.getText();
         GridPane.setConstraints(nameField, 1, 0);
         grid.getChildren().add(nameField);
-        
-        Text colText = new Text (10, 50, "Columns");
+
+        Text colText = new Text(10, 50, "Columns");
         GridPane.setConstraints(colText, 0, 1);
         grid.getChildren().add(colText);
 
@@ -77,13 +76,13 @@ public class ProjectView {
         grid.getChildren().add(plusButton);
 
 
-		//int ogCol_colIndex = 1;
-		//int ogCol_rowIndex = 1;
-		ArrayList<Integer> i = new ArrayList<>();
-		i.add(1);
+        //int ogCol_colIndex = 1;
+        //int ogCol_rowIndex = 1;
+        ArrayList<Integer> i = new ArrayList<>();
+        i.add(1);
 
-		ArrayList<TextField> colFields = new ArrayList<>();
-		ArrayList<Button> minusButtons = new ArrayList<>();
+        //ArrayList<TextField> colFields = new ArrayList<>();
+        //ArrayList<Button> minusButtons = new ArrayList<>();
 
 		/*
 		TextField currentColField = new TextField();
@@ -93,9 +92,21 @@ public class ProjectView {
 		grid.getChildren().add(currentColField);*/
 
 
-		
-		
         plusButton.setOnMousePressed((event) -> {
+
+            NewRow currentRow = new NewRow();
+            currentRow.field.setPromptText("Enter column name");
+            GridPane.setConstraints(currentRow, 1, i.size());
+            // TODO: 5/9/18 Something funky is happening here 
+            vbox.getChildren().add(currentRow);
+            grid.getChildren().add(currentRow);
+
+
+
+            i.add(1);
+            System.out.println("+ BUTTON PRESSED!");
+            System.out.println(currentRow.field.getText());
+            System.out.println(vbox.getChildren().size());
 
         	/*
         	final TextField currentColField = new TextField();
@@ -118,67 +129,58 @@ public class ProjectView {
 				//columnList.add(new ColumnModel(currentColField.getText(), null));
 				System.out.println(currentColField.getText());
 			}
+            */
 
 
-
-			i.add(1);
-			System.out.println("+ BUTTON PRESSED!");
-			System.out.println(colFields.size());
-			for (int j = 0; j < colFields.size(); j++) {
-				System.out.println(colFields.get(j).getText());
-			}
-			*/
-
- 
         });
         return grid;
-	}
+    }
 
-	private VBox vbox;
+    private VBox vbox = new VBox();
 
-	private class NewRow {
-		private HBox hbox;
-		private TextField field;
-		private Button minus;
+    private class NewRow extends HBox {
+        //private HBox hbox;
+        private TextField field;
+        private Button minus;
 
-		public NewRow() {
-			hbox = new HBox();
-			field = new TextField();
-			minus = new Button();
+        public NewRow() {
+            //hbox = new HBox();
+            field = new TextField();
+            minus = new Button();
 
-			hbox.getChildren().add(field);
-			hbox.getChildren().add(minus);
+            this.getChildren().add(field);
+            this.getChildren().add(minus);
 
-			minus.setOnMouseClicked(event -> {
-				vbox.getChildren().remove(this);
-			});
-		}
+            minus.setOnMouseClicked(event -> {
+                vbox.getChildren().remove(this);
+            });
 
-		public ColumnModel getColumn() {
-			// get field text
-			// return new column
-			return new ColumnModel(field.getText(), null);
-		}
+        }
 
-	}
+        public ColumnModel getColumn() {
+            // get field text
+            // return new column
+            return new ColumnModel(field.getText(), null);
+        }
 
-	
-	public AnchorPane addAnchorPane(GridPane grid) 
-	{
-	    AnchorPane anchorpane = new AnchorPane();
-	    Button buttonSave = new Button("Create");
-	    Button buttonCancel = new Button("Cancel");
+    }
 
-	    HBox hb = new HBox();
-	    hb.setPadding(new Insets(0, 10, 10, 10));
-	    hb.setSpacing(10);
-	    hb.getChildren().addAll(buttonSave, buttonCancel);
 
-	    anchorpane.getChildren().addAll(grid,hb);   // Add grid from Example 1-5
-	    AnchorPane.setBottomAnchor(hb, 8.0);
-	    AnchorPane.setRightAnchor(hb, 5.0);
-	    AnchorPane.setTopAnchor(grid, 10.0);
+    public AnchorPane addAnchorPane(GridPane grid) {
+        AnchorPane anchorpane = new AnchorPane();
+        Button buttonSave = new Button("Create");
+        Button buttonCancel = new Button("Cancel");
 
-	    return anchorpane;
-	}
+        HBox hb = new HBox();
+        hb.setPadding(new Insets(0, 10, 10, 10));
+        hb.setSpacing(10);
+        hb.getChildren().addAll(buttonSave, buttonCancel);
+
+        anchorpane.getChildren().addAll(grid, hb);   // Add grid from Example 1-5
+        AnchorPane.setBottomAnchor(hb, 8.0);
+        AnchorPane.setRightAnchor(hb, 5.0);
+        AnchorPane.setTopAnchor(grid, 10.0);
+
+        return anchorpane;
+    }
 }
