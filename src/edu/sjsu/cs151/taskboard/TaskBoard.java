@@ -18,6 +18,11 @@ public class TaskBoard extends Application {
 //		ProjectView projView = new ProjectView(primaryStage);
 //		projView.load();
 		
+		
+		//This is to test Task View
+//		TaskView taskView = new TaskView(primaryStage);
+//		taskView.load();
+		
 	}
 	
 
