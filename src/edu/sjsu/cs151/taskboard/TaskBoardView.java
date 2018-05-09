@@ -47,7 +47,6 @@ public class TaskBoardView {
 		this.primaryStage = primaryStage;
 	}
 	
-	
 	public void load() {
 		primaryStage.setTitle("Taskboard: " + model.getName());
 		VBox mainPane = new VBox();
@@ -55,6 +54,7 @@ public class TaskBoardView {
 		// === TOP BAR === //
 		HBox topBar = new HBox();
 		topBar.setSpacing(TOP_BAR_ITEM_SPACING);
+		topBar.setPadding(new Insets(10));
 		
 		// TODO: Project select dropdown
 		
@@ -99,13 +99,12 @@ public class TaskBoardView {
 		/* Arbitrary size to test scrollpane.
 		 * The actual width / height will be determined by the title bar dimensions.
 		 */
-		mainPane.setMaxSize(1200, 1080);
+		mainPane.setMaxWidth(1200);
 
 		mainPane.getChildren().add(scrollPane);
 
 		primaryStage.setScene(new Scene(mainPane));
 		primaryStage.show();
-		
 	}
 	
 	/**
@@ -169,8 +168,6 @@ public class TaskBoardView {
 			titleBox.setPadding(new Insets(10));
 			this.setSpacing(COLUMN_ITEM_SPACING);
 			this.setPadding(new Insets(COLUMN_PADDING));
-			
-			
 		}
 	}
 

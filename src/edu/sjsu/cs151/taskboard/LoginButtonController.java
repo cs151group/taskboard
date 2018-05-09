@@ -1,7 +1,12 @@
 package edu.sjsu.cs151.taskboard;
 
+import java.util.ArrayList;
+
 import javafx.*;
 import javafx.event.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 /**
  * Handles the event when the "Login" Button is pressed.
@@ -34,18 +39,20 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 		 * 		Create a message saying "Invalid username/password"
 		 * 			Either as a pop-up or a message at the top of the login window
 		 */
-		if(username.equals("admin") && password.equals("admin")) {
-			TaskBoardModel model = new TaskBoardModel("New Board"); // TODO: This constructor might be wrong
-			/*
-			 * TODO: Add new branch if user XML data already exists.
-			 * If it exists, call the TaskboardModel(filename) constructor instead.
-			 */
-			
-			// TODO: TaskBoardView view = new TaskBoardView(model);
-			// TODO: set the view visible somehow
+		if(username.trim().equals("admin") && password.trim().equals("admin")) {
+			// If file exists...
+				// Load from filename
+			// else : 
+				TaskBoardModel model = new TaskBoardModel("TaskBoard1", new ArrayList<>(), "board.dat");
+				// TODO: ProjectView needs to take the TaskBoardModel as a parameter
+				ProjectView newProj = new ProjectView(primary);
+				newProj.load();
 		}
 		else {
-			
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Invalid login");
+			errorAlert.setContentText("Incorrect username / password combination.");
+			errorAlert.show();
 		}
 	}
 
