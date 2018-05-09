@@ -59,20 +59,38 @@ public class TaskBoardView {
 		// TODO: Project select dropdown
 		
 		Button editProjButton = new Button("Edit");
-		Button saveProjButton = new Button("Save");
 		Button deleteProjButton = new Button("Delete");
 		Button createProjButton = new Button("Create new");
 		Separator topSep = new Separator(Orientation.VERTICAL);
+		Button saveBoardButton = new Button("Save...");
 		Button loadBoardButton = new Button("Load...");
 		Button logOutButton = new Button("Logout");
 		
-		// TODO: Create event listeners for top bar
+		// TODO: Implement all these controllers.
+		// Parameters will likely change.
+		
+		editProjButton.setOnAction(new EditProjectController());
+		deleteProjButton.setOnAction(new DeleteProjectController());
+		createProjButton.setOnAction(new CreateProjectController());
+		
+		saveBoardButton.setOnAction(new SaveBoardController());
+		loadBoardButton.setOnAction(new LoadBoardController());
+		
+		/* This one seemed pretty simple so I made it a lambda.
+		 * We can move it to another class if we need to.
+		 * - Micah 
+		 */
+		logOutButton.setOnAction((e) -> {
+			model.saveTaskBoard();
+			LoginView view = new LoginView(primaryStage);
+			view.load();
+		});
 		
 		topBar.getChildren().add(editProjButton);
-		topBar.getChildren().add(saveProjButton);
 		topBar.getChildren().add(deleteProjButton);
 		topBar.getChildren().add(createProjButton);
 		topBar.getChildren().add(topSep);
+		topBar.getChildren().add(saveBoardButton);
 		topBar.getChildren().add(loadBoardButton);
 		topBar.getChildren().add(logOutButton);
 		
