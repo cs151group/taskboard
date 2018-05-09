@@ -70,7 +70,7 @@ public class TaskBoardView {
 		// Parameters will likely change.
 		
 		editProjButton.setOnAction(new EditProjectController());
-		deleteProjButton.setOnAction(new DeleteProjectController());
+		deleteProjButton.setOnAction(new DeleteProjectController(primaryStage, model));
 		createProjButton.setOnAction(new CreateProjectController());
 		
 		saveBoardButton.setOnAction(new SaveBoardController());

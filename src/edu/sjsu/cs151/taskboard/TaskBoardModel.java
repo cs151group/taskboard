@@ -87,5 +87,13 @@ public class TaskBoardModel {
     public ProjectModel getCurrentProject() {
         return projects.get(0);
     }
+    
+    public void deleteProject(ProjectModel p) {
+    	projects.remove(p);
+    }
+    
+    public boolean isEmpty() {
+		return projects.isEmpty();
+	}
 
 }

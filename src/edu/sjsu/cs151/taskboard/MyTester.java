@@ -34,10 +34,20 @@ public class MyTester extends Application {
 		TaskBoardModel board = new TaskBoardModel("TaskBoard Name", new ArrayList<>(), "mytest.dat");
 		
 		ProjectModel project = new ProjectModel("My Cool Project", columns);
+		
+	
+		TaskModel wowTask = new TaskModel("Really Cool Task","Wow it's a description!", 
+				LocalDate.of(2019, 2, 20), new ArrayList<>());
+		ColumnModel wowCol = new ColumnModel("Wow!!!", new ArrayList<TaskModel>());
+		ProjectModel wowProj = new ProjectModel("This Project", new ArrayList<>());
+		wowProj.addColumn(wowCol);
+		wowProj.addTask(wowCol, wowTask);
+		board.addProject(wowProj);
 		board.addProject(project);
 		
 		TaskBoardView testView = new TaskBoardView(board, primaryStage);
 		testView.load();
+		
 	}
 	
 	private static ColumnModel createDummyColumn() {

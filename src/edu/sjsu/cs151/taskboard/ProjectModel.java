@@ -42,4 +42,12 @@ public class ProjectModel {
 	public ArrayList<ColumnModel> getColumns() {
 		return columns;
 	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public void addColumn(ColumnModel c) {
+		columns.add(c);
+	}
 }
