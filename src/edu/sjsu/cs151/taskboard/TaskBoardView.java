@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /*
  * This is likely the most complicated view we have in the program. We probably
@@ -187,6 +188,8 @@ public class TaskBoardView {
 			// Handling column title
 			HBox titleBox = new HBox();
 			Text colTitle = new Text(colModel.getName());
+			colTitle.setTextAlignment(TextAlignment.CENTER);
+			colTitle.setWrappingWidth(COLUMN_WIDTH);
 			titleBox.getChildren().add(colTitle);
 			this.getChildren().add(titleBox);
 			
