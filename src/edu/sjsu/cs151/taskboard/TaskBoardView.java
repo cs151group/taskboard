@@ -126,10 +126,20 @@ public class TaskBoardView {
 		// We could potentially use mainPane.setOnScroll to make the scroll wheel go horizontal
 
 		ProjectModel currentProject = model.getCurrentProject();
-		for(ColumnModel c : currentProject.getColumns()) {
-			InnerColumnView colView = new InnerColumnView(c);
+		// TODO: 5/10/18 I don't know what I'm doing here. Sorry!
+		// Added if else to wrap the first for loop
+		if (!currentProject.getColumns().isEmpty()) {
+			for(ColumnModel c : currentProject.getColumns()) {
+				InnerColumnView colView = new InnerColumnView(c);
+				columnList.getChildren().add(colView);
+			}
+		}
+		else {
+			ColumnModel currentColModel = new ColumnModel("First Column");
+			InnerColumnView colView = new InnerColumnView(currentColModel);
 			columnList.getChildren().add(colView);
 		}
+
 		columnList.setSpacing(BOARD_COL_SPACING);
 
 		/* Arbitrary size to test scrollpane.

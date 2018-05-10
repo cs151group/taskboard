@@ -145,7 +145,7 @@ public class ProjectView {
                 if ((currentRow.field.getText() != null && !currentRow.field.getText().isEmpty())) {
                     ColumnModel currentColumn = new ColumnModel(currentRow.field.getText());
                     colFields.add(currentColumn);
-                    System.out.println("currentRow text: " + currentRow.field.getText());
+                    //System.out.println("currentRow text: " + currentRow.field.getText());
                 }
             }
 
@@ -161,6 +161,16 @@ public class ProjectView {
 
         buttonCancel.setOnMouseClicked(event -> {
             // TODO: 5/9/18 Where do we go when we click Cancel?
+            if (colFields.isEmpty()) {
+                colFields.add(new ColumnModel("First Column"));
+            }
+            if (nameField.getText().isEmpty()) {
+                nameField.setText("First Project");
+            }
+            ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
+            tbModel.addProject(currentProject);
+            TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
         });
 
         return anchorpane;

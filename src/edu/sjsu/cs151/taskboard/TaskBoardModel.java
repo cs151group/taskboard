@@ -87,7 +87,10 @@ public class TaskBoardModel {
 
     // What is this? -J
     public ProjectModel getCurrentProject() {
-        return projects.get(0);
+        if (projects.size() > 0) {
+            return projects.get(0);
+        }
+        else return null;
     }
     
     public void deleteProject(ProjectModel p) {
