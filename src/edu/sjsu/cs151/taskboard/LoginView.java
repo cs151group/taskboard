@@ -45,7 +45,7 @@ public class LoginView {
         
         final TextField usernameField = new TextField();
         usernameField.setPromptText("Enter username");
-        usernameField.setPrefColumnCount(10);
+        usernameField.setPrefColumnCount(12);
        // usernameField.getText();
         GridPane.setConstraints(usernameField, 1, 0);
         grid.getChildren().add(usernameField);
@@ -56,6 +56,7 @@ public class LoginView {
         
         final PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter password");
+        passwordField.setPrefColumnCount(12);
         GridPane.setConstraints(passwordField, 1, 1);
         grid.getChildren().add(passwordField);
         
