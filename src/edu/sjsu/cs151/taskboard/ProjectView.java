@@ -1,5 +1,6 @@
 package edu.sjsu.cs151.taskboard;
 
+import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -23,9 +24,12 @@ import javafx.scene.control.TextField;
 public class ProjectView {
     private Stage primaryStage;
     private VBox vbox = new VBox();
+    final TextField nameField = new TextField();
+    TaskBoardModel tbModel;
 
-    public ProjectView(Stage primaryStage) {
+    public ProjectView(Stage primaryStage, TaskBoardModel tbModel) {
         this.primaryStage = primaryStage;
+        this.tbModel = tbModel;
     }
 
     public void load() {
@@ -52,7 +56,7 @@ public class ProjectView {
         GridPane.setConstraints(nameText, 0, 0);
         grid.getChildren().add(nameText);
 
-        final TextField nameField = new TextField();
+
         nameField.setPromptText("Enter name");
         nameField.setPrefColumnCount(12);
         nameField.getText();
@@ -144,6 +148,13 @@ public class ProjectView {
                     System.out.println("currentRow text: " + currentRow.field.getText());
                 }
             }
+
+            // TODO: 5/9/18 Read name field and create new project with this name
+            // then pass it to a TaskBoard
+            ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
+            tbModel.addProject(currentProject);
+            TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
 
 
         });

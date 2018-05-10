@@ -207,9 +207,11 @@ public class TaskBoardView {
 			this.getChildren().add(buttonBox);
 			
 			// Adding all task views to the column view
-			for(TaskModel t : colModel.getTasks()) {
-				InnerTaskView nextTask = new InnerTaskView(t);
-				this.getChildren().add(nextTask);
+			if (colModel.getTasks() != null) {
+				for(TaskModel t : colModel.getTasks()) {
+					InnerTaskView nextTask = new InnerTaskView(t);
+					this.getChildren().add(nextTask);
+				}
 			}
 
 			// Arbitrary style info. Can be changed as desired //

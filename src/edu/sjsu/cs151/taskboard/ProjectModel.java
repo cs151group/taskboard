@@ -18,6 +18,7 @@ public class ProjectModel {
 	
 	public ProjectModel() {
 	}
+
 	
 	public void setName(String name) {
 		this.name = name;
