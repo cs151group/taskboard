@@ -126,9 +126,16 @@ public class ProjectView {
             GridPane.setConstraints(minus, 3, 1);
 
             minus.setOnMouseClicked(event -> {
+                if (isEditing) {
+                    editingProject.removeColumn(vbox.getChildren().indexOf(this));
+                }
                 vbox.getChildren().remove(this);
+                tbView.load();
+                //isEditing = false;
                 primaryStage.sizeToScene();
             });
+
+
         }
     }
 

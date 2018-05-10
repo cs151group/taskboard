@@ -25,7 +25,19 @@ public class ProjectModel {
 	}
 
 	public void setColumnName(int index, String name) {
-		columns.get(index).setName(name);
+		if (index >= columns.size()) {
+			columns.add(new ColumnModel(name));
+		}
+		else {
+			columns.get(index).setName(name);
+		}
+
+	}
+
+	public void removeColumn(int index) {
+		if (columns.get(index) != null) {
+			columns.remove(index);
+		}
 	}
 
 	public void setColumns(ArrayList<ColumnModel> columns) {
