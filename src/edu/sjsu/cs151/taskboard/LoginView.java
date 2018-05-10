@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -53,7 +54,7 @@ public class LoginView {
         GridPane.setConstraints(passwordText, 0, 1);
         grid.getChildren().add(passwordText);
         
-        final TextField passwordField = new TextField();
+        final PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter password");
         GridPane.setConstraints(passwordField, 1, 1);
         grid.getChildren().add(passwordField);

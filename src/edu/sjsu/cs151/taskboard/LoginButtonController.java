@@ -63,8 +63,8 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 	private void login() {
 		
 		File defaultFile = new File(DEFAULT_FILE_PATH);
-		File folder = new File("");
-		File[] matches = folder.listFiles((path) -> path.getName().matches(".*.xml"));
+		File workingDir = new File(System.getProperty("user.dir"));
+		File[] matches = workingDir.listFiles((path) -> path.getName().matches(".*.xml"));
 		// If file exists...
 		if (defaultFile.exists()) {
 			TaskBoardModel model = new TaskBoardModel(DEFAULT_FILE_PATH);
