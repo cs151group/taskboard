@@ -23,7 +23,11 @@ public class ProjectModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public void setColumnName(int index, String name) {
+		columns.get(index).setName(name);
+	}
+
 	public void setColumns(ArrayList<ColumnModel> columns) {
 		this.columns = columns;
 	}

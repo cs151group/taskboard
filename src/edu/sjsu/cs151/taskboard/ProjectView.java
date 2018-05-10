@@ -1,5 +1,6 @@
 package edu.sjsu.cs151.taskboard;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
@@ -23,12 +24,22 @@ import javafx.scene.control.TextField;
 
 public class ProjectView {
     private Stage primaryStage;
+    private TaskBoardView tbView;
     private VBox vbox = new VBox();
     final TextField nameField = new TextField();
     TaskBoardModel tbModel;
+    ArrayList<ColumnModel> colFields = new ArrayList<>();
+    boolean isEditing = false;
+    ProjectModel editingProject;
 
     public ProjectView(Stage primaryStage, TaskBoardModel tbModel) {
         this.primaryStage = primaryStage;
+        this.tbModel = tbModel;
+    }
+
+    public ProjectView(Stage primaryStage, TaskBoardView tbView, TaskBoardModel tbModel) {
+        this.primaryStage = primaryStage;
+        this.tbView = tbView;
         this.tbModel = tbModel;
     }
 
@@ -59,7 +70,7 @@ public class ProjectView {
 
         nameField.setPromptText("Enter name");
         nameField.setPrefColumnCount(12);
-        nameField.getText();
+        //nameField.getText();
         GridPane.setConstraints(nameField, 1, 0);
         grid.getChildren().add(nameField);
 
@@ -121,6 +132,55 @@ public class ProjectView {
         }
     }
 
+    public void populateFields(ProjectModel p) {
+        this.editingProject = p;
+        if (p != null) {
+            nameField.setText(p.getName());
+
+            for (ColumnModel c : p.getColumns()) {
+                NewRow currentRow = new NewRow();
+                currentRow.field.setText(c.getName());
+                vbox.getChildren().add(currentRow);
+            }
+
+            isEditing = true;
+            primaryStage.sizeToScene();
+        }
+    }
+
+    public void createOrSaveProject() {
+
+        if (isEditing) {
+            for (int i = 0; i < vbox.getChildren().size(); i++) {
+                NewRow currentRow = (NewRow)vbox.getChildren().get(i);
+
+                if ((currentRow.field.getText() != null && !currentRow.field.getText().isEmpty())) {
+                    editingProject.setColumnName(i, currentRow.field.getText());
+                }
+            }
+            primaryStage.close();
+            tbView.load();
+            System.out.println("isEditing is true");
+        }
+        else {
+            for (int i = 0; i < vbox.getChildren().size(); i++) {
+                NewRow currentRow = (NewRow)vbox.getChildren().get(i);
+
+                if ((currentRow.field.getText() != null && !currentRow.field.getText().isEmpty())) {
+                    ColumnModel currentColumn = new ColumnModel(currentRow.field.getText());
+                    colFields.add(currentColumn);
+                }
+            }
+
+            ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
+            tbModel.addProject(currentProject);
+            TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
+            System.out.println("isEditing is not true");
+        }
+        isEditing = false;
+    }
+
     public AnchorPane addAnchorPane(GridPane grid) {
         AnchorPane anchorpane = new AnchorPane();
         Button buttonSave = new Button("Create");
@@ -136,28 +196,9 @@ public class ProjectView {
         AnchorPane.setRightAnchor(hb, 5.0);
         AnchorPane.setTopAnchor(grid, 10.0);
 
-        ArrayList<ColumnModel> colFields = new ArrayList<>();
-
-        buttonSave.setOnMouseClicked(event -> {
-
-            for (int i = 0; i < vbox.getChildren().size(); i++) {
-                NewRow currentRow = (NewRow)vbox.getChildren().get(i);
-                if ((currentRow.field.getText() != null && !currentRow.field.getText().isEmpty())) {
-                    ColumnModel currentColumn = new ColumnModel(currentRow.field.getText());
-                    colFields.add(currentColumn);
-                    //System.out.println("currentRow text: " + currentRow.field.getText());
-                }
-            }
-
-            // TODO: 5/9/18 Read name field and create new project with this name
-            // then pass it to a TaskBoard
-            ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
-            tbModel.addProject(currentProject);
-            TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
-            tbView.load();
 
 
-        });
+        buttonSave.setOnMouseClicked(event -> createOrSaveProject());
 
         buttonCancel.setOnMouseClicked(event -> {
             // TODO: 5/9/18 Where do we go when we click Cancel?
