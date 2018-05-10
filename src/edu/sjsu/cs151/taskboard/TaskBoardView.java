@@ -130,6 +130,10 @@ public class TaskBoardView {
 			InnerColumnView colView = new InnerColumnView(c);
 			columnList.getChildren().add(colView);
 		}
+		
+		// TODO: Quick-edit column name?
+		// TODO: Quick-add column?
+		
 		columnList.setSpacing(BOARD_COL_SPACING);
 
 		/* Arbitrary size to test scrollpane.
@@ -185,12 +189,27 @@ public class TaskBoardView {
 			
 			this.setPrefWidth(COLUMN_WIDTH);
 			
-			// Handling column title
+			// Handling column title bar
 			HBox titleBox = new HBox();
+			Button leftButton = new Button("<-");
 			Text colTitle = new Text(colModel.getName());
+			Button rightButton = new Button("->");
 			colTitle.setTextAlignment(TextAlignment.CENTER);
-			colTitle.setWrappingWidth(COLUMN_WIDTH);
+			colTitle.setWrappingWidth(215);
+			
+			leftButton.setOnAction(e -> {
+				model.getCurrentProject().moveLeft(colModel);
+				load();
+			});
+			rightButton.setOnAction(e -> {
+				model.getCurrentProject().moveRight(colModel);
+				load();
+			});
+			
+			titleBox.getChildren().add(leftButton);
 			titleBox.getChildren().add(colTitle);
+			titleBox.getChildren().add(rightButton);
+			
 			this.getChildren().add(titleBox);
 			
 			// Adding '+' button
