@@ -74,7 +74,7 @@ public class TaskBoardView {
 		createProjButton.setOnAction(new CreateProjectController());
 		
 		saveBoardButton.setOnAction(new SaveBoardController());
-		loadBoardButton.setOnAction(new LoadBoardController());
+		loadBoardButton.setOnAction(new LoadBoardController(primaryStage));
 		logOutButton.setOnAction(new LogoutController(primaryStage, model));
 		
 		topBar.getChildren().add(editProjButton);

@@ -17,8 +17,12 @@ public class TaskBoardModel {
     }
 
     public TaskBoardModel(String fileName) {
-    	TaskBoardModel tempModel = JAXB.unmarshal(new File(fileName), TaskBoardModel.class);
-    	this.fileName = fileName;
+    	this(new File(fileName));
+    }
+    
+    public TaskBoardModel(File file) {
+    	TaskBoardModel tempModel = JAXB.unmarshal(file, TaskBoardModel.class);
+    	this.fileName = file.getName();
     	this.name = tempModel.name;
     	this.projects = tempModel.projects;
     }

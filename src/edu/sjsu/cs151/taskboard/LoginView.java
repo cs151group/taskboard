@@ -66,6 +66,7 @@ public class LoginView {
         grid.getChildren().add(loginButton);
         loginButton.setOnAction(
         		new LoginButtonController(primaryStage, usernameField, passwordField));
+        loginButton.setDefaultButton(true);
         
         primaryStage.setScene(new Scene(grid));
         primaryStage.show();
