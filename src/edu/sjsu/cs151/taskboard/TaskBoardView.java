@@ -126,8 +126,17 @@ public class TaskBoardView {
 		// We could potentially use mainPane.setOnScroll to make the scroll wheel go horizontal
 
 		ProjectModel currentProject = model.getCurrentProject();
-		for(ColumnModel c : currentProject.getColumns()) {
-			InnerColumnView colView = new InnerColumnView(c);
+		// TODO: 5/10/18 I don't know what I'm doing here. Sorry!
+		// Added if else to wrap the first for loop
+		if (!currentProject.getColumns().isEmpty()) {
+			for(ColumnModel c : currentProject.getColumns()) {
+				InnerColumnView colView = new InnerColumnView(c);
+				columnList.getChildren().add(colView);
+			}
+		}
+		else {
+			ColumnModel currentColModel = new ColumnModel("First Column");
+			InnerColumnView colView = new InnerColumnView(currentColModel);
 			columnList.getChildren().add(colView);
 		}
 		
@@ -226,9 +235,11 @@ public class TaskBoardView {
 			this.getChildren().add(buttonBox);
 			
 			// Adding all task views to the column view
-			for(TaskModel t : colModel.getTasks()) {
-				InnerTaskView nextTask = new InnerTaskView(t);
-				this.getChildren().add(nextTask);
+			if (colModel.getTasks() != null) {
+				for(TaskModel t : colModel.getTasks()) {
+					InnerTaskView nextTask = new InnerTaskView(t);
+					this.getChildren().add(nextTask);
+				}
 			}
 
 			// Arbitrary style info. Can be changed as desired //

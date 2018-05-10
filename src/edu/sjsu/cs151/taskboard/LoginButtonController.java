@@ -3,8 +3,6 @@ package edu.sjsu.cs151.taskboard;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
-import javafx.*;
 import javafx.event.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -79,7 +77,7 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 		else {
 			TaskBoardModel model = new TaskBoardModel("TaskBoard1", new ArrayList<>(), DEFAULT_FILE_PATH);
 			// TODO: ProjectView needs to take the TaskBoardModel as a parameter
-			ProjectView newProj = new ProjectView(primary);
+			ProjectView newProj = new ProjectView(primary, model);
 			newProj.load();
 		}
 
