@@ -75,7 +75,7 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 			view.load();
 		}
 		else {
-			TaskBoardModel model = new TaskBoardModel("TaskBoard1", new ArrayList<>(), DEFAULT_FILE_PATH);
+			TaskBoardModel model = new TaskBoardModel("TaskBoard1", new ArrayList<>());
 			// TODO: ProjectView needs to take the TaskBoardModel as a parameter
 			ProjectView newProj = new ProjectView(primary, model);
 			newProj.load();

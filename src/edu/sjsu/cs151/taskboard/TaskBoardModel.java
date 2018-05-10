@@ -11,6 +11,7 @@ public class TaskBoardModel {
     private String name = "TaskBoard1";
     private ArrayList<ProjectModel> projects = new ArrayList<>();
     private String fileName;
+    // TODO: Should we represent filename as a File object  ?? ? 
 
     public TaskBoardModel() {
 
@@ -41,7 +42,12 @@ public class TaskBoardModel {
 
     // Begin Getters and Setters
 
-    public String getName() {
+    public TaskBoardModel(String name, ArrayList<ProjectModel> projects) {
+		this.name = name;
+		this.projects = projects;
+	}
+
+	public String getName() {
         return this.name;
     }
 
