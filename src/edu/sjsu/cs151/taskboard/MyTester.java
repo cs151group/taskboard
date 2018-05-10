@@ -31,7 +31,7 @@ public class MyTester extends Application {
 		ArrayList<ColumnModel> columns = new ArrayList<>();
 		columns.addAll(Arrays.asList(c1, c2, c3, c4, c5));
 		
-		TaskBoardModel board = new TaskBoardModel("TaskBoard Name", new ArrayList<>(), "mytest.dat");
+		TaskBoardModel board = new TaskBoardModel("TaskBoard Name", new ArrayList<>(), "mytest.xml");
 		
 		ProjectModel project = new ProjectModel("My Cool Project", columns);
 		

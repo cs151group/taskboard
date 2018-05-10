@@ -12,6 +12,18 @@ public class ColumnModel {
 		this.tasks = tasks;
 	}
 	
+	public ColumnModel() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setTasks(ArrayList<TaskModel> tasks) {
+		this.tasks = tasks;
+	}
+	
 	public void addTask(TaskModel task) { tasks.add(task); }
 	
 	public void addTask(String s) {

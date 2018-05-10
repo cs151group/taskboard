@@ -22,6 +22,18 @@ public class TaskModel {
     public String getName() {
         return name;
     }
+    
+    public TaskModel() {
+		// TODO Auto-generated constructor stub
+	}
+    
+    public void setName(String name) {
+		this.name = name;
+	}
+    
+    public void setTags(ArrayList<String> tags) {
+		this.tags = tags;
+	}
 
     public void setDescription(String d) { description = d; }
 

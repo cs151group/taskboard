@@ -15,6 +15,17 @@ public class ProjectModel {
 		this.name = name;
 		this.columns = columns;
 	}
+	
+	public ProjectModel() {
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setColumns(ArrayList<ColumnModel> columns) {
+		this.columns = columns;
+	}
 
 	public void moveLeft(ColumnModel col) {
 		int currentIndex = columns.indexOf(col);
