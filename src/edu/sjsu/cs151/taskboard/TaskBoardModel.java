@@ -102,7 +102,7 @@ public class TaskBoardModel {
     public void deleteProject(ProjectModel p) {
     	projects.remove(p);
     }
-    
+
     public boolean isEmpty() {
 		return projects.isEmpty();
 	}

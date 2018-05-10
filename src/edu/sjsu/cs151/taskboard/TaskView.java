@@ -2,6 +2,8 @@ package edu.sjsu.cs151.taskboard;
 import javafx.stage.Stage;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextArea;
 //import javafx.geometry.*;
@@ -103,9 +105,14 @@ public class TaskView
         
         // Choice Box
         ChoiceBox<String> cb = new ChoiceBox<>();
-        cb.getItems().add("Todo");
-        cb.getItems().add("In Process");
-        cb.getItems().add("Done");
+        ProjectModel projModel = tbModel.getCurrentProject();
+        ArrayList<ColumnModel> colList = projModel.getColumns();
+        
+        for(ColumnModel col : colList)
+        {
+        	String name = col.getName();
+        	cb.getItems().add(name);
+        }
         
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
