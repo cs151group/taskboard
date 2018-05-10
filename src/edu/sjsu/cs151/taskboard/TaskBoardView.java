@@ -13,6 +13,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -43,6 +44,7 @@ public class TaskBoardView {
 	private static final double TASK_PADDING = 10;
 	private static final double TASK_ITEM_SPACING = 5;
 	private static final double TOP_BAR_ITEM_SPACING = 10;
+	private static final double PLUS_BUTTON_HEIGHT = 35;
 	
 	public TaskBoardView(TaskBoardModel model, Stage primaryStage) {
 		this.model = model;
@@ -91,8 +93,6 @@ public class TaskBoardView {
 		fileItems.getChildren().add(saveBoardButton);
 		fileItems.getChildren().add(loadBoardButton);
 		fileItems.getChildren().add(logOutButton);
-		
-		
 		
 		Text projMenuText = new Text("Projects");
 		projMenuText.setFill(Paint.valueOf("grey"));
@@ -190,6 +190,19 @@ public class TaskBoardView {
 			titleBox.getChildren().add(colTitle);
 			this.getChildren().add(titleBox);
 			
+			// Adding '+' button
+			
+			HBox buttonBox = new HBox();
+			Button plusButton = new Button();
+			plusButton.setText("+");
+			plusButton.setOnAction(new NewTaskController(colModel));
+			plusButton.setPrefWidth(COLUMN_WIDTH + TASK_PADDING);
+			plusButton.setPrefHeight(PLUS_BUTTON_HEIGHT);
+			plusButton.setStyle("-fx-font-size: 24; -fx-font-weight: 900; -fx-text-fill: #505050");
+			buttonBox.getChildren().add(plusButton);
+			buttonBox.setPadding(new Insets(5, 0, 5, 0));
+			this.getChildren().add(buttonBox);
+			
 			// Adding all task views to the column view
 			for(TaskModel t : colModel.getTasks()) {
 				InnerTaskView nextTask = new InnerTaskView(t);
@@ -248,7 +261,7 @@ public class TaskBoardView {
 			}
 			
 			// Arbitrary style info. Can be changed as desired. //
-			this.setStyle("-fx-background-color: whitesmoke");
+			this.setStyle("-fx-background-color: whitesmoke; -fx-border-color: lightgrey");
 			this.setPadding(new Insets(TASK_PADDING));
 			this.setSpacing(TASK_ITEM_SPACING);
 			name.setFont(new Font("Verdana", 18));

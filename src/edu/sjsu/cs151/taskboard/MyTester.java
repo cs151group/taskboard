@@ -42,8 +42,8 @@ public class MyTester extends Application {
 		ProjectModel wowProj = new ProjectModel("This Project", new ArrayList<>());
 		wowProj.addColumn(wowCol);
 		wowProj.addTask(wowCol, wowTask);
-		board.addProject(wowProj);
 		board.addProject(project);
+		board.addProject(wowProj);
 		
 		TaskBoardView testView = new TaskBoardView(board, primaryStage);
 		testView.load();
