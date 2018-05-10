@@ -15,7 +15,11 @@ public class ColumnModel {
 	public ColumnModel() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	public ColumnModel (String name) {
+		this.name = name;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
