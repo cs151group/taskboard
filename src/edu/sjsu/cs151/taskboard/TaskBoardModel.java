@@ -5,9 +5,11 @@ import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.ArrayList;
 
+import javax.xml.bind.JAXB;
+
 public class TaskBoardModel {
     private String name = "TaskBoard1";
-    private ArrayList<ProjectModel> projects;
+    private ArrayList<ProjectModel> projects = new ArrayList<>();
     private String fileName;
 
     public TaskBoardModel() {
@@ -15,12 +17,20 @@ public class TaskBoardModel {
     }
 
     public TaskBoardModel(String fileName) {
-        // TODO: 5/8/18 Load a TaskBoard from a fileName
+    	TaskBoardModel tempModel = JAXB.unmarshal(new File(fileName), TaskBoardModel.class);
+    	this.fileName = fileName;
+    	this.name = tempModel.name;
+    	this.projects = tempModel.projects;
     }
 
     public TaskBoardModel(String name, ArrayList<ProjectModel> projects, String fileName) {
         this.name = name;
         this.projects = projects;
+        this.fileName = fileName;
+    }
+    
+    public TaskBoardModel(String name, String fileName) {
+        this.name = name;
         this.fileName = fileName;
     }
 
@@ -54,24 +64,12 @@ public class TaskBoardModel {
     // End Getters and Setters
 
 
-    public void save() throws FileNotFoundException {
-        // TODO: 5/3/18 XML Shit goes here
-        XMLEncoder e = new XMLEncoder(
-                new BufferedOutputStream(
-                        new FileOutputStream(fileName)
-                ));
-        e.writeObject(this);
-        e.close();
+    public void save() {
+        JAXB.marshal(this, new File(fileName));
     }
 
-    public TaskBoardModel load(String fileName) throws FileNotFoundException {
-        XMLDecoder d = new XMLDecoder(
-                new BufferedInputStream(
-                        new FileInputStream(fileName)));
-        // Will casting work here? - J
-        TaskBoardModel result = (TaskBoardModel) d.readObject();
-        d.close();
-        return result;
+    public static TaskBoardModel load(String fileName) {
+    	return JAXB.unmarshal(new File(fileName), TaskBoardModel.class);
     }
 
     public void editProject() {

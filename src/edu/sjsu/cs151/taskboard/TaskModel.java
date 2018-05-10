@@ -4,10 +4,18 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TaskModel {
     private String name = "Task1";
     private String description;
+    
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dueDate;
+    
     private ArrayList<String> tags;
 
     public TaskModel(String name, String description, LocalDate dueDate, ArrayList<String> tags) {

@@ -27,16 +27,7 @@ public class LogoutController implements EventHandler<ActionEvent> {
 		sureAlert.setContentText("Are you sure you wish to log out?");
 		Optional<ButtonType> result = sureAlert.showAndWait();
 		if (result.isPresent() && result.get() == ButtonType.OK) {
-			try {
 				model.save();
-			} catch (FileNotFoundException e) {
-				Alert fnfAlert = new Alert(AlertType.ERROR);
-				fnfAlert.setHeaderText("File Error");
-				fnfAlert.setContentText("The file did not successfully save.");
-				e.printStackTrace();
-				
-				// TODO: Fix this exception handling. Have user pick new file
-			}
 			LoginView view = new LoginView(primary);
 			view.load();
 		}
