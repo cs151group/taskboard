@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +17,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -77,13 +79,37 @@ public class TaskBoardView {
 		loadBoardButton.setOnAction(new LoadBoardController(primaryStage));
 		logOutButton.setOnAction(new LogoutController(primaryStage, model));
 		
-		topBar.getChildren().add(editProjButton);
-		topBar.getChildren().add(deleteProjButton);
-		topBar.getChildren().add(createProjButton);
+		VBox projControls = new VBox(5);
+		VBox fileControls = new VBox(5);
+		
+		HBox projItems = new HBox(5);
+		HBox fileItems = new HBox(5);
+		
+		projItems.getChildren().add(editProjButton);
+		projItems.getChildren().add(deleteProjButton);
+		projItems.getChildren().add(createProjButton);
+		fileItems.getChildren().add(saveBoardButton);
+		fileItems.getChildren().add(loadBoardButton);
+		fileItems.getChildren().add(logOutButton);
+		
+		
+		
+		Text projMenuText = new Text("Projects");
+		projMenuText.setFill(Paint.valueOf("grey"));
+		Text fileMenuText = new Text("File");
+		fileMenuText.setFill(Paint.valueOf("grey"));
+		
+		projControls.setAlignment(Pos.TOP_CENTER);
+		projControls.getChildren().add(projItems);
+		projControls.getChildren().add(projMenuText);
+		
+		fileControls.setAlignment(Pos.TOP_CENTER);
+		fileControls.getChildren().add(fileItems);
+		fileControls.getChildren().add(fileMenuText);
+		
+		topBar.getChildren().add(projControls);
 		topBar.getChildren().add(topSep);
-		topBar.getChildren().add(saveBoardButton);
-		topBar.getChildren().add(loadBoardButton);
-		topBar.getChildren().add(logOutButton);
+		topBar.getChildren().add(fileControls);
 		
 		// TODO: Add visual style to top bar
 		
