@@ -24,7 +24,7 @@ public class LoadBoardController implements EventHandler<ActionEvent> {
 	public void handle(ActionEvent event) {
 		FileChooser loader = new FileChooser();
 		loader.setTitle("Load Taskboard");
-		loader.setSelectedExtensionFilter(new ExtensionFilter("XML files", "*.xml"));
+		loader.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
 		loader.setInitialDirectory(new File(System.getProperty("user.dir")));
 		Stage newStage = new Stage();
 		File selectedFile = loader.showOpenDialog(newStage);

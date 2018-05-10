@@ -79,7 +79,7 @@ public class TaskBoardView {
 //		deleteProjButton.setOnAction(new DeleteProjectController(primaryStage, model));
 		createProjButton.setOnAction(new CreateProjectController());
 		
-		saveBoardButton.setOnAction(new SaveBoardController());
+		saveBoardButton.setOnAction(new SaveBoardController(model));
 		loadBoardButton.setOnAction(new LoadBoardController(primaryStage));
 		logOutButton.setOnAction(new LogoutController(primaryStage, model));
 		
@@ -140,7 +140,10 @@ public class TaskBoardView {
 			InnerColumnView colView = new InnerColumnView(currentColModel);
 			columnList.getChildren().add(colView);
 		}
-
+		
+		// TODO: Quick-edit column name?
+		// TODO: Quick-add column?
+		
 		columnList.setSpacing(BOARD_COL_SPACING);
 
 		/* Arbitrary size to test scrollpane.
@@ -196,12 +199,27 @@ public class TaskBoardView {
 			
 			this.setPrefWidth(COLUMN_WIDTH);
 			
-			// Handling column title
+			// Handling column title bar
 			HBox titleBox = new HBox();
+			Button leftButton = new Button("<-");
 			Text colTitle = new Text(colModel.getName());
+			Button rightButton = new Button("->");
 			colTitle.setTextAlignment(TextAlignment.CENTER);
-			colTitle.setWrappingWidth(COLUMN_WIDTH);
+			colTitle.setWrappingWidth(215);
+			
+			leftButton.setOnAction(e -> {
+				model.getCurrentProject().moveLeft(colModel);
+				load();
+			});
+			rightButton.setOnAction(e -> {
+				model.getCurrentProject().moveRight(colModel);
+				load();
+			});
+			
+			titleBox.getChildren().add(leftButton);
 			titleBox.getChildren().add(colTitle);
+			titleBox.getChildren().add(rightButton);
+			
 			this.getChildren().add(titleBox);
 			
 			// Adding '+' button
@@ -209,7 +227,7 @@ public class TaskBoardView {
 			HBox buttonBox = new HBox();
 			Button plusButton = new Button();
 			plusButton.setText("+");
-			plusButton.setOnAction(new NewTaskController(colModel));
+			plusButton.setOnAction(new NewTaskController(primaryStage, model, colModel));
 			plusButton.setPrefWidth(COLUMN_WIDTH + TASK_PADDING);
 			plusButton.setPrefHeight(PLUS_BUTTON_HEIGHT);
 			plusButton.setStyle("-fx-font-size: 24; -fx-font-weight: 900; -fx-text-fill: #505050");

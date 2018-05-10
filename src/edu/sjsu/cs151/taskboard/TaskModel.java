@@ -17,6 +17,8 @@ public class TaskModel {
     private LocalDate dueDate;
     
     private ArrayList<String> tags;
+    
+    private String status = "NONE";
 
     public TaskModel(String name, String description, LocalDate dueDate, ArrayList<String> tags) {
         this.name = name;
@@ -87,4 +89,14 @@ public class TaskModel {
     {
 		return tags;
 	}
+    
+    public void setStatus(String status)
+    {
+    	this.status = status;
+    }
+    
+    public String getStatus()
+    {
+    	return status;
+    }
 }
