@@ -66,11 +66,11 @@ public class MyTester extends Application {
 				+ "Cattle are the most common type of large domesticated hoofed animals. "
 				+ "They are a prominent modern member of the subfamily Bovinae.",
 				LocalDate.of(2018, 5, 12), new ArrayList<String>());
-		
-		ColumnModel col = new ColumnModel("In Progress", new ArrayList<TaskModel>());
+		ColumnModel col = new ColumnModel("Test", new ArrayList<TaskModel>());
 		col.addTask(task);
 		col.addTask(task2);
 		col.addTask(task3);
+
 		return col;
 	}
 }
