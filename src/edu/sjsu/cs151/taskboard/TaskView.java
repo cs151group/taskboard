@@ -27,11 +27,21 @@ public class TaskView
 
 	private Stage primaryStage;
 	private TaskBoardView taskBoardView;
+	private ColumnModel colModel;
+	private TaskModel taskModel = new TaskModel();
+	private TaskBoardModel tbModel;
 	
 	public TaskView(Stage primaryStage, TaskBoardView taskBoardView) {
 		this.primaryStage = primaryStage;
 		this.taskBoardView = taskBoardView;
 	}
+	
+	public TaskView(Stage primaryStage, TaskBoardModel tbModel, ColumnModel colModel ) {
+		this.primaryStage = primaryStage;
+		this.tbModel = tbModel;
+		this.colModel = colModel;
+	}
+	
     
 	//This is the load for New Task
     public void load() {
@@ -41,7 +51,7 @@ public class TaskView
         GridPane grid = new GridPane();
         
         border.setCenter(addGridPane());
-        border.setBottom(addAnchorPaneNew(grid));
+       // border.setBottom(addAnchorPaneNew(grid));
         
         primaryStage.setScene(new Scene(border));
         primaryStage.show();
@@ -66,9 +76,9 @@ public class TaskView
         final TextField nameField = new TextField();
         nameField.setPromptText("Enter name");
         nameField.setMaxWidth(200);
-        nameField.getText();
         GridPane.setConstraints(nameField, 1, 0);
         grid.getChildren().add(nameField);
+
         
         //Description
         Text descriptionText = new Text (10, 50, "Description");
@@ -78,9 +88,9 @@ public class TaskView
         TextArea descriptionArea = new TextArea();
         descriptionArea.setPrefColumnCount(30);
         descriptionArea.setPrefRowCount(10);
-        descriptionArea.getText();
         GridPane.setConstraints(descriptionArea, 1, 1);
         grid.getChildren().add(descriptionArea);
+
         
         //Status
         Text statusText = new Text (10, 50, "Status");
@@ -92,10 +102,20 @@ public class TaskView
         //Instead of being Todo, In Process, ... it should be the input from add column
         
         // Choice Box
-        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
-        	    "Todo", "In Process", "Done"));
+        ChoiceBox<String> cb = new ChoiceBox<>();
+        cb.getItems().add("Todo");
+        cb.getItems().add("In Process");
+        cb.getItems().add("Done");
+        
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
+
+        
+        
+//        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
+//        	    "Todo", "In Process", "Done"));
+//        GridPane.setConstraints(cb, 1, 2);
+//        grid.getChildren().add(cb);
              
         //Due Data
         Text dueDateText = new Text (10, 50, "Due Date");
@@ -105,6 +125,28 @@ public class TaskView
         DatePicker checkInDatePicker = new DatePicker();
         GridPane.setConstraints(checkInDatePicker, 1, 3);
         grid.getChildren().add(checkInDatePicker);
+        
+        
+        Button buttonSave = new Button("Create");
+        GridPane.setConstraints(buttonSave, 2, 4);
+        grid.getChildren().add(buttonSave);
+        
+	    buttonSave.setOnMouseClicked(event -> {
+	    	
+	        taskModel.setName(nameField.getText());
+	        taskModel.setDescription(descriptionArea.getText());
+	        taskModel.setStatus(cb.getValue());
+	    	taskModel.setDueDate(checkInDatePicker.getValue());
+	    	colModel.addTask(taskModel);
+	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
+	    });
+        
+	    Button buttonCancel = new Button("Cancel");
+	    GridPane.setConstraints(buttonCancel, 3, 4);
+	    grid.getChildren().add(buttonCancel);
+        
+        
    //     checkInDatePicker.getValue().toString();
         
         /*
@@ -124,6 +166,13 @@ public class TaskView
 	{
 	    AnchorPane anchorpane = new AnchorPane();
 	    Button buttonSave = new Button("Create");
+	    
+	    buttonSave.setOnMouseClicked(event -> {
+	    	colModel.addTask(taskModel);
+	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
+	    });
+	    
 	    Button buttonCancel = new Button("Cancel");
 
 	    HBox hb = new HBox();
@@ -198,10 +247,14 @@ public class TaskView
         //Instead of being Todo, In Process, ... it should be the input from add column
         
         // Choice Box
-        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
-        	    "Todo", "In Process", "Done"));
+        ChoiceBox<String> cb = new ChoiceBox<>();
+        cb.getItems().add("Todo");
+        cb.getItems().add("In Process");
+        cb.getItems().add("Done");
+        
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
+        
              
         //Due Data
         Text dueDateText = new Text (10, 50, "Due Date");

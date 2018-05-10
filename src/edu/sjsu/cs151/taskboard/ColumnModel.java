@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ColumnModel {
 	private String name;
-	private ArrayList<TaskModel> tasks;
+	private ArrayList<TaskModel> tasks = new ArrayList<>();
 
 	public ColumnModel (String name, ArrayList<TaskModel> tasks) {
 		this.name = name;

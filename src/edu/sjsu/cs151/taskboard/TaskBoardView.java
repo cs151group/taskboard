@@ -226,7 +226,7 @@ public class TaskBoardView {
 			HBox buttonBox = new HBox();
 			Button plusButton = new Button();
 			plusButton.setText("+");
-			plusButton.setOnAction(new NewTaskController(colModel));
+			plusButton.setOnAction(new NewTaskController(primaryStage, model, colModel));
 			plusButton.setPrefWidth(COLUMN_WIDTH + TASK_PADDING);
 			plusButton.setPrefHeight(PLUS_BUTTON_HEIGHT);
 			plusButton.setStyle("-fx-font-size: 24; -fx-font-weight: 900; -fx-text-fill: #505050");
