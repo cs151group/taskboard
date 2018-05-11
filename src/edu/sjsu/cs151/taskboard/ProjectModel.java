@@ -23,23 +23,7 @@ public class ProjectModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public void setColumnName(int index, String name) {
-		if (index >= columns.size()) {
-			columns.add(new ColumnModel(name));
-		}
-		else {
-			columns.get(index).setName(name);
-		}
-
-	}
-
-	public void removeColumn(int index) {
-		if (columns.get(index) != null) {
-			columns.remove(index);
-		}
-	}
-
+	
 	public void setColumns(ArrayList<ColumnModel> columns) {
 		this.columns = columns;
 	}
@@ -77,5 +61,16 @@ public class ProjectModel {
 	
 	public void addColumn(ColumnModel c) {
 		columns.add(c);
+	}
+	
+	public ColumnModel getSpecificCol(String name)
+	{
+		for (ColumnModel c : columns)
+		{
+			if(c.getName().equals(name))
+				return c;
+		}
+		
+		return null;
 	}
 }

@@ -73,9 +73,8 @@ public class TaskBoardView {
 		
 		// TODO: Implement all these controllers.
 		// Parameters will likely change.
-
-		// TODO: 5/10/18 Juan
-		editProjButton.setOnAction(new EditProjectController(primaryStage, model.getCurrentProject(), model, this));
+		
+		editProjButton.setOnAction(new EditProjectController());
 //		deleteProjButton.setOnAction(new DeleteProjectController(primaryStage, model));
 		createProjButton.setOnAction(new CreateProjectController());
 		

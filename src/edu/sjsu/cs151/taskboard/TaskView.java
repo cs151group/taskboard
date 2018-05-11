@@ -2,6 +2,7 @@ package edu.sjsu.cs151.taskboard;
 import javafx.stage.Stage;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.scene.control.TextArea;
@@ -32,6 +33,8 @@ public class TaskView
 	private ColumnModel colModel;
 	private TaskModel taskModel = new TaskModel();
 	private TaskBoardModel tbModel;
+	
+	public String defaultText = null;
 	
 	public TaskView(Stage primaryStage, TaskBoardView taskBoardView) {
 		this.primaryStage = primaryStage;
@@ -134,35 +137,33 @@ public class TaskView
         grid.getChildren().add(checkInDatePicker);
         
         
-        Button buttonSave = new Button("Create");
-        GridPane.setConstraints(buttonSave, 2, 4);
-        grid.getChildren().add(buttonSave);
+        Button buttonCreate = new Button("Create");
+        GridPane.setConstraints(buttonCreate, 2, 4);
+        grid.getChildren().add(buttonCreate);
         
-	    buttonSave.setOnMouseClicked(event -> {
+	    buttonCreate.setOnMouseClicked(event -> {
 	    	
-	        taskModel.setName(nameField.getText());
-	        taskModel.setDescription(descriptionArea.getText());
+	        taskModel.setName(getTextField(nameField));
+	        taskModel.setDescription(getTextField(descriptionArea));
 	        taskModel.setStatus(cb.getValue());
-	    	taskModel.setDueDate(checkInDatePicker.getValue());
-	    	colModel.addTask(taskModel);
+	    	taskModel.setDueDate(getDate(checkInDatePicker));
+	    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             tbView.load();
 	    });
-        
+	   
+	    
 	    Button buttonCancel = new Button("Cancel");
 	    GridPane.setConstraints(buttonCancel, 3, 4);
 	    grid.getChildren().add(buttonCancel);
+	    
+	    buttonCancel.setOnMouseClicked(event -> {
+	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
+	    
+	    });
         
-        
-   //     checkInDatePicker.getValue().toString();
-        
-        /*
-        final TextField dueDateField = new TextField();
-        dueDateField.setMaxWidth(100);
-        dueDateField.getText();
-        GridPane.setConstraints(dueDateField, 1, 3);
-        grid.getChildren().add(dueDateField);
-          */
+       
         
         return grid;
         
@@ -305,6 +306,43 @@ public class TaskView
 	    return anchorpane;
 	}
 
-
-        
+    //This method checks if textfield is empty and return defaultText if it is
+    public String getTextField(TextField text) 
+    {
+    	if (text.getText() == null || text.getText().trim().isEmpty()) {
+    	     return defaultText;
+    	}
+    	return text.getText();
+    }
+    
+    //This method checks if textArea is empty and return defaultText if it is
+    public String getTextField(TextArea text) 
+    {
+    	if (text.getText() == null || text.getText().trim().isEmpty()) {
+    	     return defaultText;
+    	}
+    	return text.getText();
+    }
+    
+    //this method return the column selected in the ChoiceBox
+    // if it is empty return current colModel
+    public ColumnModel getColumn(String cb)
+    {
+    	if (cb == null)
+    		return colModel;
+    	
+    	return tbModel.getCurrentProject().getSpecificCol(cb);
+    }
+    
+    //Method to get Value of DatePicker
+    //return current date if the user didn't select nothing
+    public LocalDate getDate(DatePicker picker)
+    {
+    	if(picker.getValue() == null)
+    		return LocalDate.now();
+    	
+    	return picker.getValue();
+    }
+    
+    
 }
