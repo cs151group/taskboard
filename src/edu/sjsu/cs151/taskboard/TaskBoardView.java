@@ -300,7 +300,7 @@ public class TaskBoardView {
 			name.setFont(new Font("Verdana", 18));
 			
 			// Adding mouse click controller to go to edit task
-			this.setOnMouseClicked(new EditTaskController(primaryStage, taskModel, TaskBoardView.this));
+			this.setOnMouseClicked(new EditTaskController(primaryStage, taskModel, model));
 		}
 		
 	}

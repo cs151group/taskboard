@@ -18,7 +18,7 @@ public class TaskModel {
     
     private ArrayList<String> tags;
     
-    private String status = "NONE";
+    private ColumnModel col;
 
     public TaskModel(String name, String description, LocalDate dueDate, ArrayList<String> tags) {
         this.name = name;
@@ -90,13 +90,13 @@ public class TaskModel {
 		return tags;
 	}
     
-    public void setStatus(String status)
+    public void setColumn(ColumnModel col)
     {
-    	this.status = status;
+    	this.col = col;
     }
     
-    public String getStatus()
+    public ColumnModel getColumn()
     {
-    	return status;
+    	return col;
     }
 }

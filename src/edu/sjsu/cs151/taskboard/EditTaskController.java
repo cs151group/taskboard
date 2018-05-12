@@ -13,24 +13,22 @@ import javafx.stage.Stage;
 public class EditTaskController implements EventHandler<InputEvent> {
 	
 	Stage primary;
-	TaskModel model;
-	TaskBoardView previousView;
+	TaskModel taskModel;
+	TaskBoardModel tbModel;
 	
 	
-	public EditTaskController(Stage primary, TaskModel taskModel, TaskBoardView previousView) {
+	public EditTaskController(Stage primary, TaskModel taskModel, TaskBoardModel tbModel) {
 		this.primary = primary;
-		this.model = taskModel;
-		this.previousView = previousView;
+		this.taskModel = taskModel;
+		this.tbModel = tbModel;
 	}
 
 	@Override
 	public void handle(InputEvent event) {
-		TaskView taskView = new TaskView(primary, previousView);
-		taskView.load(model,previousView );
+		TaskView taskView = new TaskView(primary, tbModel);
+		taskView.load(taskModel, tbModel);
 	}
 	
-	public void handle1(InputEvent event) {
-		previousView.load();
-	}
+
 
 }

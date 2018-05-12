@@ -36,12 +36,12 @@ public class TaskView
 	
 	public String defaultText = null;
 	
-	public TaskView(Stage primaryStage, TaskBoardView taskBoardView) {
+	public TaskView(Stage primaryStage, TaskBoardModel tbModel) {
 		this.primaryStage = primaryStage;
-		this.taskBoardView = taskBoardView;
+		this.tbModel = tbModel;
 	}
 	
-	public TaskView(Stage primaryStage, TaskBoardModel tbModel, ColumnModel colModel ) {
+	public TaskView(Stage primaryStage, TaskBoardModel tbModel, ColumnModel colModel) {
 		this.primaryStage = primaryStage;
 		this.tbModel = tbModel;
 		this.colModel = colModel;
@@ -120,12 +120,6 @@ public class TaskView
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
 
-        
-        
-//        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
-//        	    "Todo", "In Process", "Done"));
-//        GridPane.setConstraints(cb, 1, 2);
-//        grid.getChildren().add(cb);
              
         //Due Data
         Text dueDateText = new Text (10, 50, "Due Date");
@@ -145,7 +139,7 @@ public class TaskView
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
-	        taskModel.setStatus(cb.getValue());
+	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
@@ -163,48 +157,19 @@ public class TaskView
 	    
 	    });
         
-       
-        
         return grid;
         
 	}
-    
-    //Buttons for New Task
-    public AnchorPane addAnchorPaneNew(GridPane grid) 
-	{
-	    AnchorPane anchorpane = new AnchorPane();
-	    Button buttonSave = new Button("Create");
-	    
-	    buttonSave.setOnMouseClicked(event -> {
-	    	colModel.addTask(taskModel);
-	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
-            tbView.load();
-	    });
-	    
-	    Button buttonCancel = new Button("Cancel");
-
-	    HBox hb = new HBox();
-	    hb.setPadding(new Insets(0, 10, 10, 10));
-	    hb.setSpacing(10);
-	    hb.getChildren().addAll(buttonSave, buttonCancel);
-
-	    anchorpane.getChildren().addAll(grid,hb);   // Add grid from Example 1-5
-	    AnchorPane.setBottomAnchor(hb, 8.0);
-	    AnchorPane.setRightAnchor(hb, 5.0);
-	    AnchorPane.setTopAnchor(grid, 10.0);
-
-	    return anchorpane;
-	}
+   
     
     //This is the load to edit a task
-    public void load(TaskModel taskModel, TaskBoardView taskBoardView)
+    public void load(TaskModel taskModel, TaskBoardModel tbModel)
     {
     	primaryStage.setTitle("Edit a Task");
         BorderPane border = new BorderPane();
         GridPane grid = new GridPane();
         
-        border.setCenter(addGridPane(taskModel ));
-        border.setBottom(addAnchorPaneEdit(grid, taskBoardView));
+        border.setCenter(addGridPane(taskModel));
         
         primaryStage.setScene(new Scene(border));
         primaryStage.show();
@@ -229,7 +194,7 @@ public class TaskView
         nameField.setMaxWidth(200);
         GridPane.setConstraints(nameField, 1, 0);
         grid.getChildren().add(nameField);
-        taskModel.setName(nameField.getText());
+ //       taskModel.setName(nameField.getText());
         
         //Description
         Text descriptionText = new Text (10, 50, "Description");
@@ -243,7 +208,7 @@ public class TaskView
         descriptionArea.setWrapText(true);
         GridPane.setConstraints(descriptionArea, 1, 1);
         grid.getChildren().add(descriptionArea);
-        taskModel.setDescription(descriptionArea.getText());
+//        taskModel.setDescription(descriptionArea.getText());
         
         //Status
         Text statusText = new Text (10, 50, "Status");
@@ -251,14 +216,16 @@ public class TaskView
         grid.getChildren().add(statusText);
         
         
-        //TODO: 5/9/18
-        //Instead of being Todo, In Process, ... it should be the input from add column
-        
         // Choice Box
         ChoiceBox<String> cb = new ChoiceBox<>();
-        cb.getItems().add("Todo");
-        cb.getItems().add("In Process");
-        cb.getItems().add("Done");
+        ProjectModel projModel = tbModel.getCurrentProject();
+        ArrayList<ColumnModel> colList = projModel.getColumns();
+        
+        for(ColumnModel col : colList)
+        {
+        	String name = col.getName();
+        	cb.getItems().add(name);
+        }
         
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
@@ -272,39 +239,38 @@ public class TaskView
         DatePicker checkInDatePicker = new DatePicker(taskModel.getDueDate());
         GridPane.setConstraints(checkInDatePicker, 1, 3);
         grid.getChildren().add(checkInDatePicker);
-        taskModel.setDueDate(checkInDatePicker.getValue()); 
+//        taskModel.setDueDate(checkInDatePicker.getValue()); 
         
-     /*   
-        final TextField dueDateField = new TextField();
-        dueDateField.setMaxWidth(100);
-        dueDateField.setText(taskModel.getDueDate());
-        GridPane.setConstraints(dueDateField, 1, 3);
-        grid.getChildren().add(dueDateField);
-*/
+        Button buttonLoad = new Button("Load");
+        GridPane.setConstraints(buttonLoad, 2, 4);
+        grid.getChildren().add(buttonLoad);
+        
+	    buttonLoad.setOnMouseClicked(event -> {
+	    	
+	        taskModel.setName(getTextField(nameField));
+	        taskModel.setDescription(getTextField(descriptionArea));
+	        taskModel.setColumn(getColumn(cb.getValue()));
+	    	taskModel.setDueDate(getDate(checkInDatePicker));
+	//    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
+	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
+	    });
+	   
+	    
+	    Button buttonCancel = new Button("Cancel");
+	    GridPane.setConstraints(buttonCancel, 3, 4);
+	    grid.getChildren().add(buttonCancel);
+	    
+	    buttonCancel.setOnMouseClicked(event -> {
+	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            tbView.load();
+	    
+	    });
+        
         return grid;
         
 	}
     
-    //Buttons for Edit a Task
-    public AnchorPane addAnchorPaneEdit(GridPane grid, TaskBoardView taskBoardView) 
-	{
-	    AnchorPane anchorpane = new AnchorPane();
-	    Button buttonEdit = new Button("Edit");
-	    buttonEdit.setOnAction(event -> taskBoardView.load());
-	    Button buttonCancel = new Button("Cancel");
-
-	    HBox hb = new HBox();
-	    hb.setPadding(new Insets(0, 10, 10, 10));
-	    hb.setSpacing(10);
-	    hb.getChildren().addAll(buttonEdit, buttonCancel);
-
-	    anchorpane.getChildren().addAll(grid,hb);   // Add grid from Example 1-5
-	    AnchorPane.setBottomAnchor(hb, 8.0);
-	    AnchorPane.setRightAnchor(hb, 5.0);
-	    AnchorPane.setTopAnchor(grid, 10.0);
-
-	    return anchorpane;
-	}
 
     //This method checks if textfield is empty and return defaultText if it is
     public String getTextField(TextField text) 
