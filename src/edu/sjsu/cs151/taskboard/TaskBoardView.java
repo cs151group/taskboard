@@ -25,7 +25,6 @@ import javafx.scene.text.TextAlignment;
  * implemented as inner classes or as separate external classes.
  */
 
-// TODO: Add EventHandler classes for each clickable object in the UI.
 
 public class TaskBoardView {
 	
@@ -65,7 +64,6 @@ public class TaskBoardView {
 		Button loadBoardButton = new Button("Load...");
 		Button logOutButton = new Button("Logout");
 		
-		// TODO: Implement all these controllers.
 		// Parameters will likely change.
 
 		editProjButton.setOnAction(new EditProjectController(primaryStage, model.getCurrentProject(), model, this));
@@ -150,6 +148,7 @@ public class TaskBoardView {
 		primaryStage.show();
 	}
 	
+	// TODO: This is unused. Consider removing.
 	/**
 	 * This is used to test during development of this class. We can remove later if necessary.
 	 */
@@ -253,7 +252,6 @@ public class TaskBoardView {
 		public InnerTaskView(TaskModel task) {
 			
 			/*
-			 * TODO: Make this look better. Font style, background color, etc. 
 			 * https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 			 */
 			

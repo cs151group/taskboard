@@ -22,7 +22,6 @@ public class CreateProjectController implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
 		ProjectView projView = new ProjectView(createProjectStage, tbView, tbModel);
 		projView.populateFields(pModel);
 		projView.load();

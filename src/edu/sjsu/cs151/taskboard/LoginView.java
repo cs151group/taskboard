@@ -21,7 +21,7 @@ import javafx.scene.control.Label;
 
 import javafx.scene.control.TextField;
 
-
+// TODO: Prompt user to select a file on login.
 public class LoginView {
 	
 	private Stage primaryStage;

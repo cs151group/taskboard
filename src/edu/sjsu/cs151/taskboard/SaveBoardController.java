@@ -18,7 +18,6 @@ public class SaveBoardController implements EventHandler<ActionEvent> {
 	
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
 		// if filename is null, prompt for filename, save.
 		if(model.getFileName() == null) {
 			FileChooser picker = new FileChooser();

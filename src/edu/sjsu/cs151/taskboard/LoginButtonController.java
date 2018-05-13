@@ -29,7 +29,6 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
 		/*
 		 * Check username and password.
 		 * If username/password are correct
@@ -76,7 +75,6 @@ public class LoginButtonController implements EventHandler<ActionEvent> {
 		}
 		else {
 			TaskBoardModel model = new TaskBoardModel("TaskBoard1", new ArrayList<>());
-			// TODO: ProjectView needs to take the TaskBoardModel as a parameter
 			ProjectView newProj = new ProjectView(primary, model);
 			newProj.load();
 		}

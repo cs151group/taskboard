@@ -26,7 +26,6 @@ public class EditProjectController implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
 		ProjectView projView = new ProjectView(editProjectStage, tbView, tbModel);
 		projView.populateFields(pModel);
 		projView.load();
