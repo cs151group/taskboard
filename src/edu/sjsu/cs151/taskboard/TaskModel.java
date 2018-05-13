@@ -21,7 +21,7 @@ public class TaskModel {
     
     private ArrayList<String> tags;
     
-    private ColumnModel col;
+//    private ColumnModel col;
 
     public TaskModel(String name, String description, LocalDate dueDate, ArrayList<String> tags) {
         this.name = name;
@@ -101,13 +101,13 @@ public class TaskModel {
 		return tags;
 	}
     
-    public void setColumn(ColumnModel col)
-    {
-    	this.col = col;
-    }
+//    public void setColumn(ColumnModel col)
+//    {
+//    	this.col = col;
+//    }
     
-    public ColumnModel getColumn()
-    {
-    	return col;
-    }
+//    public ColumnModel getColumn()
+//    {
+//    	return col;
+//    }
 }

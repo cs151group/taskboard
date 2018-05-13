@@ -55,7 +55,6 @@ public class TaskView
         GridPane grid = new GridPane();
         
         border.setCenter(addGridPane());
-       // border.setBottom(addAnchorPaneNew(grid));
         
         primaryStage.setScene(new Scene(border));
         primaryStage.show();
@@ -102,9 +101,6 @@ public class TaskView
         grid.getChildren().add(statusText);
         
         
-        //TODO: 5/9/18
-        //Instead of being Todo, In Process, ... it should be the input from add column
-        
         // Choice Box
         ChoiceBox<String> cb = new ChoiceBox<>();
         ProjectModel projModel = tbModel.getCurrentProject();
@@ -146,7 +142,7 @@ public class TaskView
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
-	        taskModel.setColumn(getColumn(cb.getValue()));
+//	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
 	    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
@@ -202,7 +198,6 @@ public class TaskView
         nameField.setMaxWidth(200);
         GridPane.setConstraints(nameField, 1, 0);
         grid.getChildren().add(nameField);
- //       taskModel.setName(nameField.getText());
         
         //Description
         Text descriptionText = new Text (10, 50, "Description");
@@ -216,7 +211,6 @@ public class TaskView
         descriptionArea.setWrapText(true);
         GridPane.setConstraints(descriptionArea, 1, 1);
         grid.getChildren().add(descriptionArea);
-//        taskModel.setDescription(descriptionArea.getText());
         
         //Status
         Text statusText = new Text (10, 50, "Status");
@@ -256,7 +250,6 @@ public class TaskView
         DatePicker checkInDatePicker = new DatePicker(taskModel.getDueDate());
         GridPane.setConstraints(checkInDatePicker, 1, 4);
         grid.getChildren().add(checkInDatePicker);
-//        taskModel.setDueDate(checkInDatePicker.getValue()); 
         
         Button buttonLoad = new Button("Load");
         GridPane.setConstraints(buttonLoad, 2, 5);
@@ -266,7 +259,7 @@ public class TaskView
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
-	        taskModel.setColumn(getColumn(cb.getValue()));
+//	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
 	//    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
