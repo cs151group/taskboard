@@ -129,9 +129,9 @@ public class ProjectView {
                     editingProject.removeColumn(vbox.getChildren().indexOf(this));
                 }
                 vbox.getChildren().remove(this);
-                tbView.load();
                 primaryStage.sizeToScene();
             });
+
         }
     }
 
@@ -172,8 +172,10 @@ public class ProjectView {
                     tbView.load();
                     System.out.println("isEditing is not true");
                 }
+
                 isEditing = false;
             }
+            tbView.load();
         }
     }
 

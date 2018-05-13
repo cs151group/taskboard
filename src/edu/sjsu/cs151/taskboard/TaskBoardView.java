@@ -10,13 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -76,7 +70,7 @@ public class TaskBoardView {
 
 		editProjButton.setOnAction(new EditProjectController(primaryStage, model.getCurrentProject(), model, this));
 //		deleteProjButton.setOnAction(new DeleteProjectController(primaryStage, model));
-		createProjButton.setOnAction(new CreateProjectController());
+		createProjButton.setOnAction(new CreateProjectController(primaryStage, model.getCurrentProject(), model, this));
 		
 		saveBoardButton.setOnAction(new SaveBoardController(model));
 		loadBoardButton.setOnAction(new LoadBoardController(primaryStage));
@@ -292,9 +286,11 @@ public class TaskBoardView {
 				// Adding tagView to task
 				this.getChildren().add(tagView);
 			}
+			Color bgColor = task.getColor();
 			
 			// Arbitrary style info. Can be changed as desired. //
-			this.setStyle("-fx-background-color: whitesmoke; -fx-border-color: lightgrey");
+			this.setStyle("/*-fx-background-color: bgColor;*/ -fx-border-color: lightgrey");
+			this.setBackground(new Background(new BackgroundFill(task.getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
 			this.setPadding(new Insets(TASK_PADDING));
 			this.setSpacing(TASK_ITEM_SPACING);
 			name.setFont(new Font("Verdana", 18));

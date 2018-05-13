@@ -1,5 +1,7 @@
 package edu.sjsu.cs151.taskboard;
 
+import javafx.scene.paint.Color;
+
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class TaskModel {
     private String name = "Task1";
     private String description;
+    private Color color;
     
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dueDate;
@@ -70,6 +73,14 @@ public class TaskModel {
     public LocalDate getDueDate() 
     {
         return dueDate;
+    }
+
+    public void setColor (Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return this.color;
     }
 
     public void addTag(String tag) 

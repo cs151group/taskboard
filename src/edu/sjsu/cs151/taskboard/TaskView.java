@@ -1,11 +1,13 @@
 package edu.sjsu.cs151.taskboard;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextArea;
 //import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -14,16 +16,13 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 public class TaskView 
 {
@@ -120,19 +119,27 @@ public class TaskView
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
 
+        // Color Picker
+        Text colorPicker = new Text (10, 50, "Color");
+        GridPane.setConstraints(colorPicker, 0, 3);
+        grid.getChildren().add(colorPicker);
+
+        ColorPicker cPicker = new ColorPicker();
+        GridPane.setConstraints(cPicker, 1,  3);
+        grid.getChildren().add(cPicker);
              
         //Due Data
         Text dueDateText = new Text (10, 50, "Due Date");
-        GridPane.setConstraints(dueDateText, 0, 3);
+        GridPane.setConstraints(dueDateText, 0, 4);
         grid.getChildren().add(dueDateText);
         
         DatePicker checkInDatePicker = new DatePicker();
-        GridPane.setConstraints(checkInDatePicker, 1, 3);
+        GridPane.setConstraints(checkInDatePicker, 1, 4);
         grid.getChildren().add(checkInDatePicker);
         
         
         Button buttonCreate = new Button("Create");
-        GridPane.setConstraints(buttonCreate, 2, 4);
+        GridPane.setConstraints(buttonCreate, 2, 5);
         grid.getChildren().add(buttonCreate);
         
 	    buttonCreate.setOnMouseClicked(event -> {
@@ -141,6 +148,7 @@ public class TaskView
 	        taskModel.setDescription(getTextField(descriptionArea));
 	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
+	    	taskModel.setColor(getColor(cPicker));
 	    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             tbView.load();
@@ -148,7 +156,7 @@ public class TaskView
 	   
 	    
 	    Button buttonCancel = new Button("Cancel");
-	    GridPane.setConstraints(buttonCancel, 3, 4);
+	    GridPane.setConstraints(buttonCancel, 3, 5);
 	    grid.getChildren().add(buttonCancel);
 	    
 	    buttonCancel.setOnMouseClicked(event -> {
@@ -229,20 +237,29 @@ public class TaskView
         
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
-        
+
+        // Color Picker
+        Text colorPicker = new Text (10, 50, "Color");
+        GridPane.setConstraints(colorPicker, 0, 3);
+        grid.getChildren().add(colorPicker);
+
+        ColorPicker cPicker = new ColorPicker();
+        GridPane.setConstraints(cPicker, 1,  3);
+        grid.getChildren().add(cPicker);
+
              
         //Due Data
         Text dueDateText = new Text (10, 50, "Due Date");
-        GridPane.setConstraints(dueDateText, 0, 3);
+        GridPane.setConstraints(dueDateText, 0, 4);
         grid.getChildren().add(dueDateText);
         
         DatePicker checkInDatePicker = new DatePicker(taskModel.getDueDate());
-        GridPane.setConstraints(checkInDatePicker, 1, 3);
+        GridPane.setConstraints(checkInDatePicker, 1, 4);
         grid.getChildren().add(checkInDatePicker);
 //        taskModel.setDueDate(checkInDatePicker.getValue()); 
         
         Button buttonLoad = new Button("Load");
-        GridPane.setConstraints(buttonLoad, 2, 4);
+        GridPane.setConstraints(buttonLoad, 2, 5);
         grid.getChildren().add(buttonLoad);
         
 	    buttonLoad.setOnMouseClicked(event -> {
@@ -251,6 +268,7 @@ public class TaskView
 	        taskModel.setDescription(getTextField(descriptionArea));
 	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
+	    	taskModel.setColor(getColor(cPicker));
 	//    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             tbView.load();
@@ -258,7 +276,7 @@ public class TaskView
 	   
 	    
 	    Button buttonCancel = new Button("Cancel");
-	    GridPane.setConstraints(buttonCancel, 3, 4);
+	    GridPane.setConstraints(buttonCancel, 3, 5);
 	    grid.getChildren().add(buttonCancel);
 	    
 	    buttonCancel.setOnMouseClicked(event -> {
@@ -309,6 +327,9 @@ public class TaskView
     	
     	return picker.getValue();
     }
-    
+
+    public Color getColor(ColorPicker colPick) {
+	    return colPick.getValue();
+    }
     
 }
