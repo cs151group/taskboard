@@ -3,17 +3,21 @@ package edu.sjsu.cs151.taskboard;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -54,12 +58,31 @@ public class TaskBoardView {
 		topBar.setSpacing(TOP_BAR_ITEM_SPACING);
 		topBar.setPadding(new Insets(10));
 		
-		// TODO: Project select dropdown
-		
+		// Project controls
 		Button editProjButton = new Button("Edit");
 		Button deleteProjButton = new Button("Delete");
 		Button createProjButton = new Button("Create new");
+		ComboBox<ProjectModel> selectProj = new ComboBox<>();
+		
+		// Select project dropdown
+		selectProj.setItems(FXCollections.observableList(model.getProjects()));
+		selectProj.setConverter(new StringConverter<ProjectModel>() {
+			
+			@Override
+			public String toString(ProjectModel object) {
+				return object.getName();
+			}
+
+			@Override
+			public ProjectModel fromString(String string) {
+				// This shouldn't be used by the dropdown...
+				throw new UnsupportedOperationException();
+			}
+		});
+		
 		Separator topSep = new Separator(Orientation.VERTICAL);
+		
+		// File controls
 		Button saveBoardButton = new Button("Save...");
 		Button loadBoardButton = new Button("Load...");
 		Button logOutButton = new Button("Logout");
@@ -67,7 +90,7 @@ public class TaskBoardView {
 		// Parameters will likely change.
 
 		editProjButton.setOnAction(new EditProjectController(primaryStage, model.getCurrentProject(), model, this));
-//		deleteProjButton.setOnAction(new DeleteProjectController(primaryStage, model));
+		deleteProjButton.setOnAction(new DeleteProjectController(primaryStage, model));
 		createProjButton.setOnAction(new CreateProjectController(primaryStage, model.getCurrentProject(), model, this));
 		
 		saveBoardButton.setOnAction(new SaveBoardController(model));
@@ -83,6 +106,7 @@ public class TaskBoardView {
 		projItems.getChildren().add(editProjButton);
 		projItems.getChildren().add(deleteProjButton);
 		projItems.getChildren().add(createProjButton);
+		
 		fileItems.getChildren().add(saveBoardButton);
 		fileItems.getChildren().add(loadBoardButton);
 		fileItems.getChildren().add(logOutButton);

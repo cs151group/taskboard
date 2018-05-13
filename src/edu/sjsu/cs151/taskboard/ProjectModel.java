@@ -89,4 +89,14 @@ public class ProjectModel {
 		
 		return null;
 	}
+	
+	public ColumnModel findColumn(TaskModel task) {
+		for(ColumnModel c : columns) {
+			ArrayList<TaskModel> tasks = c.getTasks();
+			for(TaskModel t : tasks) {
+				if(t.equals(task)) return c;
+			}
+		}
+		return null;
+	}
 }
