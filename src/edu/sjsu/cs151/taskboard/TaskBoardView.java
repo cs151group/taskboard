@@ -306,8 +306,10 @@ public class TaskBoardView {
 			Text name = new Text(taskModel.getName());
 			Text desc = new Text(taskModel.getDescription());
 			
-			// Making sure description text wraps properly
+			// Making sure name and description text wraps properly
+			name.setWrappingWidth(COLUMN_WIDTH - TASK_PADDING);
 			desc.setWrappingWidth(COLUMN_WIDTH - TASK_PADDING);
+			
 			
 			// TODO: Change date text to more readable format
 			Text date = new Text("Due: " + taskModel.getDueDate().toString());
