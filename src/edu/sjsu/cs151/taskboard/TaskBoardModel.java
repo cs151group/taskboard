@@ -106,5 +106,14 @@ public class TaskBoardModel {
     public boolean isEmpty() {
 		return projects.isEmpty();
 	}
+    
+    /**
+     * Sets the current project to p.
+     * @param p the proect to switch to
+     */
+    public void changeCurrProject(ProjectModel p) {
+    	projects.remove(p);
+    	projects.add(0, p);
+    }
 
 }
