@@ -23,7 +23,7 @@ public class CreateProjectController implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent event) {
 		ProjectView projView = new ProjectView(createProjectStage, tbView, tbModel);
-		projView.populateFields(pModel);
+		//projView.populateFields(pModel);
 		projView.load();
 		createProjectStage.setTitle("New Project");
 		createProjectStage.setAlwaysOnTop(true);
