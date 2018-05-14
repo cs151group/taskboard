@@ -165,8 +165,7 @@ public class TaskBoardView {
 		// We could potentially use mainPane.setOnScroll to make the scroll wheel go horizontal
 
 		ProjectModel currentProject = model.getCurrentProject();
-		// TODO: 5/10/18 I don't know what I'm doing here. Sorry!
-		// Added if else to wrap the first for loop
+
 		if (!currentProject.getColumns().isEmpty()) {
 			for(ColumnModel c : currentProject.getColumns()) {
 				InnerColumnView colView = new InnerColumnView(c);

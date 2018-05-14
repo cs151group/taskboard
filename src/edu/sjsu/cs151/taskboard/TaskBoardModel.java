@@ -79,9 +79,6 @@ public class TaskBoardModel {
     	return JAXB.unmarshal(new File(fileName), TaskBoardModel.class);
     }
 
-    public void editProject() {
-        // TODO: 5/3/18 do we need to do this here?
-    }
 
     public void addProject(ProjectModel p) {
         projects.add(p);

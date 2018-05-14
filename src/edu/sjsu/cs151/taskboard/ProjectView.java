@@ -212,19 +212,7 @@ public class ProjectView {
         buttonSave.setOnMouseClicked(event -> createOrSaveProject());
 
         buttonCancel.setOnMouseClicked(event -> {
-            // TODO: 5/9/18 Where do we go when we click Cancel?
-            /*if (colFields.isEmpty()) {
-                colFields.add(new ColumnModel("First Column"));
-            }
-            if (nameField.getText().isEmpty()) {
-                nameField.setText("First Project");
-            }
-            colFields.clear();*/
-            //ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
-            //tbModel.addProject(currentProject);
-            //TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             primaryStage.close();
-            //tbView.load();
         });
 
         return anchorpane;
