@@ -186,10 +186,11 @@ public class ProjectView {
                     colFields.add(currentColumn);
                     ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
                     tbModel.addProject(currentProject);
-                    TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
-                    tbView.load();
-                    System.out.println("isEditing is not true");
+
                 }
+                TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+                tbView.load();
+                System.out.println("isEditing is not true");
 
                 isEditing = false;
             }
