@@ -30,6 +30,7 @@ public class ProjectView {
     ArrayList<ColumnModel> colFields = new ArrayList<>();
     boolean isEditing = false;
     ProjectModel editingProject;
+    ArrayList<Integer> removedColumns;
 
     public ProjectView(Stage primaryStage, TaskBoardModel tbModel) {
         this.primaryStage = primaryStage;
@@ -125,11 +126,20 @@ public class ProjectView {
             GridPane.setConstraints(minus, 3, 1);
 
             minus.setOnMouseClicked(event -> {
+                removedColumns = new ArrayList<>();
                 if (isEditing) {
-                    editingProject.removeColumn(vbox.getChildren().indexOf(this));
+                    int removedIndex = vbox.getChildren().indexOf(this);
+                    vbox.getChildren().remove(this);
+
+                    System.out.println("removed index is: " + removedIndex);
+                    removedColumns.add(removedIndex);
+                    primaryStage.sizeToScene();
                 }
-                vbox.getChildren().remove(this);
-                primaryStage.sizeToScene();
+                else {
+                    vbox.getChildren().remove(this);
+                    primaryStage.sizeToScene();
+                }
+
             });
 
         }
@@ -151,12 +161,20 @@ public class ProjectView {
 
     public void createOrSaveProject() {
         if (isEditing) {
+            //First, check if columns hvae been removed during editing
+            if (removedColumns != null) {
+                for (Integer k : removedColumns) {
+                    editingProject.removeColumn(k);
+                }
+            }
+            //Then continue to change the data if column names were changed
             for (int i = 0; i < vbox.getChildren().size(); i++) {
                 NewRow currentRow = (NewRow) vbox.getChildren().get(i);
                 if ((currentRow.field.getText() != null && !currentRow.field.getText().isEmpty())) {
                     editingProject.setColumnName(i, currentRow.field.getText());
                 }
             }
+            //finish up
             primaryStage.close();
             tbView.load();
             System.out.println("isEditing is true");
@@ -203,16 +221,18 @@ public class ProjectView {
 
         buttonCancel.setOnMouseClicked(event -> {
             // TODO: 5/9/18 Where do we go when we click Cancel?
-            if (colFields.isEmpty()) {
+            /*if (colFields.isEmpty()) {
                 colFields.add(new ColumnModel("First Column"));
             }
             if (nameField.getText().isEmpty()) {
                 nameField.setText("First Project");
             }
-            ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
-            tbModel.addProject(currentProject);
-            TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
-            tbView.load();
+            colFields.clear();*/
+            //ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
+            //tbModel.addProject(currentProject);
+            //TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+            primaryStage.close();
+            //tbView.load();
         });
 
         return anchorpane;
