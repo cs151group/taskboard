@@ -1,13 +1,11 @@
 package edu.sjsu.cs151.taskboard;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.event.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 /**
  * Handles the event when the "Login" Button is pressed.

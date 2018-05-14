@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -15,13 +14,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -53,7 +53,10 @@ public class TaskBoardView {
 	
 	public void load() {
 		primaryStage.setTitle("Taskboard: " + model.getName());
-		VBox mainPane = new VBox();
+		primaryStage.setMinHeight(800);
+		primaryStage.setMinWidth(1200);
+		primaryStage.centerOnScreen();
+		BorderPane mainPane = new BorderPane();
 		
 		// === TOP BAR === //
 		HBox topBar = new HBox();
@@ -61,8 +64,8 @@ public class TaskBoardView {
 		topBar.setPadding(new Insets(10));
 		
 		// Project controls
-		Button editProjButton = new Button("Edit");
-		Button deleteProjButton = new Button("Delete");
+		Button editProjButton = new Button("Edit Project");
+		Button deleteProjButton = new Button("Delete Project");
 		Button createProjButton = new Button("Create new");
 		ComboBox<ProjectModel> selectProj = new ComboBox<>();
 		
@@ -144,12 +147,18 @@ public class TaskBoardView {
 		
 		// TODO: Add visual style to top bar
 		
-		mainPane.getChildren().add(topBar);
+		mainPane.setTop(topBar);
+		//mainPane.minWidthProperty().bind(topBar.minWidthProperty());
 		
 		// === COLUMNS === //
 		
 		HBox columnList = new HBox();
+		columnList.setBackground(
+				new Background(new BackgroundImage(new Image("file:background.png"), 
+						null, null, null, null)));
 		ScrollPane scrollPane = new ScrollPane(columnList);
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
 		
 		// Allows the scroll pane to be moved by mouse dragging
 		scrollPane.setPannable(true);
@@ -178,9 +187,8 @@ public class TaskBoardView {
 		/* Arbitrary size to test scrollpane.
 		 * The actual width / height will be determined by the title bar dimensions.
 		 */
-		mainPane.setMaxWidth(1200);
 
-		mainPane.getChildren().add(scrollPane);
+		mainPane.setCenter(scrollPane);
 
 		primaryStage.setScene(new Scene(mainPane));
 		primaryStage.show();
@@ -224,16 +232,15 @@ public class TaskBoardView {
 		// TODO: Finalize visual appearance
 
 		public InnerColumnView(ColumnModel columnModel) {
-			
 			this.colModel = columnModel;
 			
 			this.setPrefWidth(COLUMN_WIDTH);
 			
 			// Handling column title bar
 			HBox titleBox = new HBox();
-			Button leftButton = new Button("<-");
+			Button leftButton = new Button("", new ImageView(new Image("file:chevron-left.png")));
 			Text colTitle = new Text(colModel.getName());
-			Button rightButton = new Button("->");
+			Button rightButton = new Button("", new ImageView(new Image("file:chevron-right.png")));
 			colTitle.setTextAlignment(TextAlignment.CENTER);
 			colTitle.setWrappingWidth(215);
 			
@@ -255,12 +262,14 @@ public class TaskBoardView {
 			// Adding '+' button
 			
 			HBox buttonBox = new HBox();
+			buttonBox.setAlignment(Pos.CENTER);
 			Button plusButton = new Button();
 			plusButton.setText("+");
 			plusButton.setOnAction(new NewTaskController(primaryStage, model, colModel));
-			plusButton.setPrefWidth(COLUMN_WIDTH + TASK_PADDING);
+			plusButton.setPrefWidth(COLUMN_WIDTH + 2 * TASK_PADDING);
 			plusButton.setPrefHeight(PLUS_BUTTON_HEIGHT);
 			plusButton.setStyle("-fx-font-size: 24; -fx-font-weight: 900; -fx-text-fill: #505050");
+			plusButton.setAlignment(Pos.CENTER);
 			buttonBox.getChildren().add(plusButton);
 			buttonBox.setPadding(new Insets(5, 0, 5, 0));
 			this.getChildren().add(buttonBox);

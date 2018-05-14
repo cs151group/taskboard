@@ -1,6 +1,5 @@
 package edu.sjsu.cs151.taskboard;
 
-import java.io.FileNotFoundException;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;

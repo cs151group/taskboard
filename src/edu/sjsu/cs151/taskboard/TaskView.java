@@ -40,7 +40,7 @@ public class TaskView
         primaryStage.setTitle("Create New Task");
         
         BorderPane border = new BorderPane();
-        GridPane grid = new GridPane();
+        new GridPane();
         
         border.setCenter(addGridPane());
         
@@ -160,8 +160,6 @@ public class TaskView
     {
     	primaryStage.setTitle("Edit a Task");
         BorderPane border = new BorderPane();
- //      GridPane grid = new GridPane();
-        
         border.setCenter(addGridPane(taskModel));
         
         primaryStage.setScene(new Scene(border));
@@ -278,9 +276,9 @@ public class TaskView
 	    
 	  //EventHandeler for CANCEL BUTTON
 	    buttonCancel.setOnMouseClicked(event -> {
-	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
-	    	//primaryStage.close();
-            tbView.load();
+	    	//TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+	    	primaryStage.close();
+            //tbView.load();
 	    
 	    });
         

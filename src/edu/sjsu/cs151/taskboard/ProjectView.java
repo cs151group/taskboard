@@ -1,24 +1,12 @@
 package edu.sjsu.cs151.taskboard;
 
-import javafx.concurrent.Task;
-import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-//import javafx.geometry.*;
 import javafx.geometry.Insets;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 
 public class ProjectView {
@@ -29,6 +17,7 @@ public class ProjectView {
     TaskBoardModel tbModel;
     ArrayList<ColumnModel> colFields = new ArrayList<>();
     boolean isEditing = false;
+    boolean firstCreate = true;
     ProjectModel editingProject;
     ArrayList<String> removedColumns = removedColumns = new ArrayList<>();
 
@@ -160,7 +149,7 @@ public class ProjectView {
 
     public void createOrSaveProject() {
         if (isEditing) {
-            //First, check if columns hvae been removed during editing
+            //First, check if columns have been removed during editing
             if (removedColumns != null) {
                 for (String k : removedColumns) {
                     System.out.println("removing column " + k);
@@ -185,21 +174,22 @@ public class ProjectView {
                 if ((currentRow.field.getText() != null && !currentRow.field.getText().isEmpty())) {
                     ColumnModel currentColumn = new ColumnModel(currentRow.field.getText());
                     colFields.add(currentColumn);
-                    ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
-                    tbModel.addProject(currentProject);
-
                 }
-                TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
-                tbView.load();
-                System.out.println("isEditing is not true");
-
-                isEditing = false;
             }
-            //tbView.load();
         }
+        ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
+        tbModel.addProject(currentProject);
+        System.out.println(tbModel.getProjects().size());
+        if (tbModel.getProjects().size() <= 1) {
+            TaskBoardView newTBView = new TaskBoardView(tbModel, primaryStage);
+            newTBView.load();
+        } else {
+            tbView.load();
+            primaryStage.close();
+        }
+        isEditing = false;
+        System.out.println("isEditing is not true");
     }
-
-
 
 
     public AnchorPane addAnchorPane(GridPane grid) {

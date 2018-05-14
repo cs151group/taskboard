@@ -1,7 +1,4 @@
 package edu.sjsu.cs151.taskboard;
-import javafx.concurrent.Task;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.ArrayList;
 

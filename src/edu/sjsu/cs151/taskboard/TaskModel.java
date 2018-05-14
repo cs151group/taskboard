@@ -2,7 +2,6 @@ package edu.sjsu.cs151.taskboard;
 
 import javafx.scene.paint.Color;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -16,7 +15,7 @@ public class TaskModel {
     private String description;
     
     @XmlJavaTypeAdapter(value = ColorAdapter.class)
-    private Color color;
+    private Color color = Color.WHITESMOKE;
     
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dueDate;
