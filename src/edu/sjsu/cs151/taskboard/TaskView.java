@@ -276,9 +276,9 @@ public class TaskView
 	    
 	  //EventHandeler for CANCEL BUTTON
 	    buttonCancel.setOnMouseClicked(event -> {
-	    	//TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
 	    	primaryStage.close();
-            //tbView.load();
+            tbView.load();
 	    
 	    });
         
