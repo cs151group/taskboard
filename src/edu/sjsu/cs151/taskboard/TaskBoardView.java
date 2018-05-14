@@ -180,7 +180,22 @@ public class TaskBoardView {
 		}
 		
 		// TODO: Quick-edit column name?
-		// TODO: Quick-add column?
+
+		Button quickAddCol = new Button("New Column");
+		quickAddCol.setOnAction(e -> {
+			ColumnModel newCol = new ColumnModel("New Column");
+			model.getCurrentProject().addColumn(newCol);
+			InnerColumnView newColView = new InnerColumnView(newCol);
+			columnList.getChildren().add(columnList.getChildren().size() - 1, newColView);
+		});
+		quickAddCol.setMinWidth(COLUMN_WIDTH + 2 * TASK_PADDING);
+		quickAddCol.setPrefHeight(PLUS_BUTTON_HEIGHT);
+		quickAddCol.setStyle("-fx-font-size: 24; -fx-font-weight: 900; -fx-text-fill: #505050");
+		quickAddCol.setAlignment(Pos.CENTER);
+		VBox quickColBox = new VBox();
+		quickColBox.getChildren().add(quickAddCol);
+		quickColBox.setPadding(new Insets(COLUMN_PADDING));
+		columnList.getChildren().add(quickColBox);
 		
 		columnList.setSpacing(BOARD_COL_SPACING);
 
