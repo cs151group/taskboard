@@ -142,7 +142,6 @@ public class TaskView
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
-//	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
 	    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
@@ -240,7 +239,7 @@ public class TaskView
         GridPane.setConstraints(colorPicker, 0, 3);
         grid.getChildren().add(colorPicker);
 
-        ColorPicker cPicker = new ColorPicker();
+        ColorPicker cPicker = new ColorPicker(taskModel.getColor());
         GridPane.setConstraints(cPicker, 1,  3);
         grid.getChildren().add(cPicker);
 
@@ -262,10 +261,9 @@ public class TaskView
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
-//	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
-	//    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
+
 	    	
             //getInput of the checkbox create a column to hold the value
             ColumnModel colInput = getColumn(cb.getValue());
@@ -274,11 +272,8 @@ public class TaskView
             if(!colInput.equals(prevCol))
             {
                 tbModel.getCurrentProject().eraseTask(prevCol, taskModel);
-                //colModel.removeTask(taskModel);
                 tbModel.getCurrentProject().addTask(colInput, taskModel);
-      //          this.taskModel.setColumn(colInput);
-                //taskModel.setColumn(colInput);
-                
+
             }
 	    	
 	    	
