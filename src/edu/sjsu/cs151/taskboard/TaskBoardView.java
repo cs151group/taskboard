@@ -145,11 +145,14 @@ public class TaskBoardView {
 		// TODO: Add visual style to top bar
 		
 		mainPane.getChildren().add(topBar);
+		mainPane.minWidthProperty().bind(topBar.minWidthProperty());
 		
 		// === COLUMNS === //
 		
 		HBox columnList = new HBox();
+		columnList.prefHeightProperty().bind(mainPane.prefWidthProperty());
 		ScrollPane scrollPane = new ScrollPane(columnList);
+		scrollPane.prefHeightProperty().bind(primaryStage.heightProperty());
 		
 		// Allows the scroll pane to be moved by mouse dragging
 		scrollPane.setPannable(true);
