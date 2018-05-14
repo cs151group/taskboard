@@ -34,6 +34,7 @@ public class TaskModel {
     public TaskModel(String name) 
     { 
     	this.name = name; 
+    	this.dueDate = LocalDate.now();
     }
     
     public TaskModel() {

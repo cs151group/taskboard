@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -280,6 +281,35 @@ public class TaskBoardView {
 					this.getChildren().add(nextTask);
 				}
 			}
+			
+			// Quick add
+			BorderPane quickAdd = new BorderPane();
+			TextField innerField = new TextField();
+			innerField.setPromptText("Type a task to quick-add");
+			//Button cancelButton = new Button("Cancel");
+			Button okButton = new Button("Add Task");
+			HBox buttons = new HBox(okButton);
+			buttons.setAlignment(Pos.CENTER_RIGHT);
+			quickAdd.setCenter(innerField);
+			quickAdd.setBottom(buttons);
+			innerField.setOnAction(e -> {
+				String text = innerField.getText();
+				TaskModel newTask = new TaskModel(text);
+				model.getCurrentProject().addTask(colModel, newTask);
+				int index = InnerColumnView.this.getChildren().size()-1;
+				InnerColumnView.this.getChildren().add(index, (new InnerTaskView(newTask)));
+				innerField.clear();
+			});
+			okButton.setOnAction(e -> {
+				String text = innerField.getText();
+				TaskModel newTask = new TaskModel(text);
+				model.getCurrentProject().addTask(colModel, newTask);
+				int index = InnerColumnView.this.getChildren().size()-1;
+				InnerColumnView.this.getChildren().add(index, (new InnerTaskView(newTask)));
+				innerField.clear();
+			});
+
+			this.getChildren().add(quickAdd);
 
 			// Arbitrary style info. Can be changed as desired //
 			colTitle.setFill(Color.GHOSTWHITE);
@@ -288,6 +318,13 @@ public class TaskBoardView {
 			titleBox.setPadding(new Insets(10));
 			this.setSpacing(COLUMN_ITEM_SPACING);
 			this.setPadding(new Insets(COLUMN_PADDING));
+
+			quickAdd.setStyle("-fx-background-color: ghostwhite; -fx-border-color: lightgrey");
+			quickAdd.setPadding(new Insets(TASK_PADDING));
+			buttons.setSpacing(10);
+			buttons.setPadding(new Insets(TASK_PADDING, 0, 0, 0));
+			//innerField.setSp
+			//name.setFont(new Font("Verdana", 18));
 		}
 	}
 
@@ -340,10 +377,12 @@ public class TaskBoardView {
 			this.setPadding(new Insets(TASK_PADDING));
 			this.setSpacing(TASK_ITEM_SPACING);
 			name.setFont(new Font("Verdana", 18));
-			
+
 			// Adding mouse click controller to go to edit task
 			this.setOnMouseClicked(new EditTaskController(primaryStage, taskModel, model));
 		}
-		
+
 	}
+
+	
 }
