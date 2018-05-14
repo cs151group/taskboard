@@ -30,7 +30,7 @@ public class ProjectView {
     ArrayList<ColumnModel> colFields = new ArrayList<>();
     boolean isEditing = false;
     ProjectModel editingProject;
-    ArrayList<Integer> removedColumns;
+    ArrayList<String> removedColumns = removedColumns = new ArrayList<>();
 
     public ProjectView(Stage primaryStage, TaskBoardModel tbModel) {
         this.primaryStage = primaryStage;
@@ -126,19 +126,18 @@ public class ProjectView {
             GridPane.setConstraints(minus, 3, 1);
 
             minus.setOnMouseClicked(event -> {
-                removedColumns = new ArrayList<>();
-                if (isEditing) {
-                    int removedIndex = vbox.getChildren().indexOf(this);
-                    vbox.getChildren().remove(this);
 
-                    System.out.println("removed index is: " + removedIndex);
-                    removedColumns.add(removedIndex);
-                    primaryStage.sizeToScene();
+                if (isEditing) {
+                    String removedColName = this.field.getText();
+                    //vbox.getChildren().remove(this);
+
+                    System.out.println("removed col is: " + removedColName);
+                    removedColumns.add(removedColName);
+                    //primaryStage.sizeToScene();
                 }
-                else {
-                    vbox.getChildren().remove(this);
-                    primaryStage.sizeToScene();
-                }
+
+                vbox.getChildren().remove(this);
+                primaryStage.sizeToScene();
 
             });
 
@@ -163,10 +162,12 @@ public class ProjectView {
         if (isEditing) {
             //First, check if columns hvae been removed during editing
             if (removedColumns != null) {
-                for (Integer k : removedColumns) {
+                for (String k : removedColumns) {
+                    System.out.println("removing column " + k);
                     editingProject.removeColumn(k);
                 }
             }
+            removedColumns.clear();
             //Then continue to change the data if column names were changed
             for (int i = 0; i < vbox.getChildren().size(); i++) {
                 NewRow currentRow = (NewRow) vbox.getChildren().get(i);
@@ -194,7 +195,7 @@ public class ProjectView {
 
                 isEditing = false;
             }
-            tbView.load();
+            //tbView.load();
         }
     }
 

@@ -39,6 +39,16 @@ public class ProjectModel {
 			columns.remove(index);
 		}
 	}
+
+	public void removeColumn(String n) {
+		ColumnModel deleteCol = new ColumnModel();
+		for (ColumnModel c : columns) {
+			if (c.getName().equals(n)) {
+				deleteCol = c;
+			}
+		}
+		columns.remove(deleteCol);
+	}
 	
 	public void setColumns(ArrayList<ColumnModel> columns) {
 		this.columns = columns;
