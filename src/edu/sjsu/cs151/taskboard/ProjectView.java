@@ -156,7 +156,7 @@ public class ProjectView {
                     editingProject.removeColumn(k);
                 }
             }
-            removedColumns.clear();
+            if (removedColumns != null) removedColumns.clear();
             //Then continue to change the data if column names were changed
             for (int i = 0; i < vbox.getChildren().size(); i++) {
                 NewRow currentRow = (NewRow) vbox.getChildren().get(i);
@@ -177,8 +177,12 @@ public class ProjectView {
                 }
             }
         }
-        ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
-        tbModel.addProject(currentProject);
+        // I commented these two lines out because I think this was the culprit
+        // for the issue where projects would be created when editing columns in a project
+        // leaving here just to see if it causes other issues...otherwise delete.
+        //ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
+        //tbModel.addProject(currentProject);
+        
         System.out.println(tbModel.getProjects().size());
         if (tbModel.getProjects().size() <= 1) {
             TaskBoardView newTBView = new TaskBoardView(tbModel, primaryStage);
@@ -212,19 +216,7 @@ public class ProjectView {
         buttonSave.setOnMouseClicked(event -> createOrSaveProject());
 
         buttonCancel.setOnMouseClicked(event -> {
-            // TODO: 5/9/18 Where do we go when we click Cancel?
-            /*if (colFields.isEmpty()) {
-                colFields.add(new ColumnModel("First Column"));
-            }
-            if (nameField.getText().isEmpty()) {
-                nameField.setText("First Project");
-            }
-            colFields.clear();*/
-            //ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
-            //tbModel.addProject(currentProject);
-            //TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             primaryStage.close();
-            //tbView.load();
         });
 
         return anchorpane;

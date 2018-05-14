@@ -71,8 +71,7 @@ public class ProjectModel {
 
 	}
 
-	// TODO: 5/3/18 How are we calling this function? How will we know which col we are moving task from
-	// (delete task from that list)
+
 	public void changeTaskStatus(ColumnModel col, TaskModel task) {
 		col.addTask(task);
 
