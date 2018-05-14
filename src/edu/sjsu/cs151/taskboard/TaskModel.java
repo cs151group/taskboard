@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class TaskModel {
     private String name = "Task1";
     private String description;
+    
+    @XmlJavaTypeAdapter(value = ColorAdapter.class)
     private Color color;
     
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
