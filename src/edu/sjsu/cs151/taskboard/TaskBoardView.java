@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.scene.text.Font;
@@ -54,8 +56,9 @@ public class TaskBoardView {
 	
 	public void load() {
 		primaryStage.setTitle("Taskboard: " + model.getName());
-		primaryStage.setMinHeight(800);
-		primaryStage.setMinWidth(1200);
+		Rectangle2D dims = Screen.getPrimary().getVisualBounds();
+		primaryStage.setMinHeight(Math.min(dims.getMinY(), 800));
+		primaryStage.setMinWidth(Math.min(dims.getMaxX(), 1200));
 		primaryStage.centerOnScreen();
 		BorderPane mainPane = new BorderPane();
 		
