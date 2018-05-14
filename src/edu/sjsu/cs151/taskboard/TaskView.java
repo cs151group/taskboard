@@ -3,32 +3,20 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import javafx.scene.control.TextArea;
-//import javafx.geometry.*;
 import javafx.geometry.Insets;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
 public class TaskView 
 {
 
 	private Stage primaryStage;
-	private TaskBoardView taskBoardView;
 	private ColumnModel colModel;
 	private TaskModel taskModel = new TaskModel();
 	private TaskBoardModel tbModel;
@@ -138,6 +126,7 @@ public class TaskView
         GridPane.setConstraints(buttonCreate, 2, 5);
         grid.getChildren().add(buttonCreate);
         
+        //EventHandeler for CREATE BUTTON
 	    buttonCreate.setOnMouseClicked(event -> {
 	    	
 	        taskModel.setName(getTextField(nameField));
@@ -154,6 +143,7 @@ public class TaskView
 	    GridPane.setConstraints(buttonCancel, 3, 5);
 	    grid.getChildren().add(buttonCancel);
 	    
+	  //EventHandeler for CANCEL BUTTON
 	    buttonCancel.setOnMouseClicked(event -> {
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             tbView.load();
@@ -170,7 +160,7 @@ public class TaskView
     {
     	primaryStage.setTitle("Edit a Task");
         BorderPane border = new BorderPane();
-        GridPane grid = new GridPane();
+ //      GridPane grid = new GridPane();
         
         border.setCenter(addGridPane(taskModel));
         
@@ -253,30 +243,29 @@ public class TaskView
         GridPane.setConstraints(checkInDatePicker, 1, 4);
         grid.getChildren().add(checkInDatePicker);
         
-        Button buttonLoad = new Button("Load");
-        GridPane.setConstraints(buttonLoad, 2, 5);
-        grid.getChildren().add(buttonLoad);
+        Button buttonEdit = new Button("Edit");
+        GridPane.setConstraints(buttonEdit, 2, 5);
+        grid.getChildren().add(buttonEdit);
         
-	    buttonLoad.setOnMouseClicked(event -> {
+        
+      //EventHandeler for LOAD BUTTON
+	    buttonEdit.setOnMouseClicked(event -> {
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
 
-	    	
-            //getInput of the checkbox create a column to hold the value
+            //getInput of the choice kbox create a column to hold the value
             ColumnModel colInput = getColumn(cb.getValue());
             
-            //Check if column Input is the same as the Column of the task passed as Aparameter
+            //Check if column Input is the same as the Column of the task passed as a parameter
             if(!colInput.equals(prevCol))
             {
                 tbModel.getCurrentProject().eraseTask(prevCol, taskModel);
                 tbModel.getCurrentProject().addTask(colInput, taskModel);
 
             }
-	    	
-	    	
 	    	
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             tbView.load();
@@ -287,6 +276,7 @@ public class TaskView
 	    GridPane.setConstraints(buttonCancel, 3, 5);
 	    grid.getChildren().add(buttonCancel);
 	    
+	  //EventHandeler for CANCEL BUTTON
 	    buttonCancel.setOnMouseClicked(event -> {
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
 	    	//primaryStage.close();
