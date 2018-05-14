@@ -293,7 +293,22 @@ public class TaskBoardView {
 			buttons.setAlignment(Pos.CENTER_RIGHT);
 			quickAdd.setCenter(innerField);
 			quickAdd.setBottom(buttons);
-			innerField.setOnAction(e -> System.out.println("Fired " + innerField.toString()));
+			innerField.setOnAction(e -> {
+				String text = innerField.getText();
+				TaskModel newTask = new TaskModel(text);
+				model.getCurrentProject().addTask(colModel, newTask);
+				int index = InnerColumnView.this.getChildren().size()-1;
+				InnerColumnView.this.getChildren().add(index, (new InnerTaskView(newTask)));
+				innerField.clear();
+			});
+			okButton.setOnAction(e -> {
+				String text = innerField.getText();
+				TaskModel newTask = new TaskModel(text);
+				model.getCurrentProject().addTask(colModel, newTask);
+				int index = InnerColumnView.this.getChildren().size()-1;
+				InnerColumnView.this.getChildren().add(index, (new InnerTaskView(newTask)));
+				innerField.clear();
+			});
 
 			this.getChildren().add(quickAdd);
 
