@@ -34,9 +34,11 @@ public class DeleteProjectController implements EventHandler<ActionEvent> {
 		ProjectModel current = model.getCurrentProject();
 		model.deleteProject(current);
 		if (model.getProjects().size() == 0) {
+			// There's no projects left. Create a new one
 			ProjectView p = new ProjectView(primaryStage, model);
 			p.load();
 		} else {
+			// There is a project still. Load the project
 			TaskBoardView view = new TaskBoardView(model, primaryStage);
 			view.load();
 		}
