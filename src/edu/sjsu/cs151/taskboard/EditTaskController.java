@@ -14,6 +14,7 @@ public class EditTaskController implements EventHandler<InputEvent> {
 	Stage primary;
 	TaskModel taskModel;
 	TaskBoardModel tbModel;
+	//Stage editTaskStage = new Stage();
 	
 	
 	public EditTaskController(Stage primary, TaskModel taskModel, TaskBoardModel tbModel) {
