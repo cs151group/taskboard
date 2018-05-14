@@ -15,7 +15,7 @@ public class TaskModel {
     private String description;
     
     @XmlJavaTypeAdapter(value = ColorAdapter.class)
-    private Color color;
+    private Color color = Color.WHITESMOKE;
     
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dueDate;

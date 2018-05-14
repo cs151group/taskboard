@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -51,7 +52,10 @@ public class TaskBoardView {
 	
 	public void load() {
 		primaryStage.setTitle("Taskboard: " + model.getName());
-		VBox mainPane = new VBox();
+		primaryStage.setMinHeight(800);
+		primaryStage.setMinWidth(1200);
+		primaryStage.centerOnScreen();
+		BorderPane mainPane = new BorderPane();
 		
 		// === TOP BAR === //
 		HBox topBar = new HBox();
@@ -142,15 +146,18 @@ public class TaskBoardView {
 		
 		// TODO: Add visual style to top bar
 		
-		mainPane.getChildren().add(topBar);
-		mainPane.minWidthProperty().bind(topBar.minWidthProperty());
+		mainPane.setTop(topBar);
+		//mainPane.minWidthProperty().bind(topBar.minWidthProperty());
 		
 		// === COLUMNS === //
 		
 		HBox columnList = new HBox();
-		columnList.prefHeightProperty().bind(mainPane.prefWidthProperty());
+		columnList.setBackground(
+				new Background(new BackgroundImage(new Image("file:background.png"), 
+						null, null, null, null)));
 		ScrollPane scrollPane = new ScrollPane(columnList);
-		scrollPane.prefHeightProperty().bind(primaryStage.heightProperty());
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
 		
 		// Allows the scroll pane to be moved by mouse dragging
 		scrollPane.setPannable(true);
@@ -179,9 +186,8 @@ public class TaskBoardView {
 		/* Arbitrary size to test scrollpane.
 		 * The actual width / height will be determined by the title bar dimensions.
 		 */
-		mainPane.setMaxWidth(1200);
 
-		mainPane.getChildren().add(scrollPane);
+		mainPane.setCenter(scrollPane);
 
 		primaryStage.setScene(new Scene(mainPane));
 		primaryStage.show();
