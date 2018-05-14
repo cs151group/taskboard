@@ -263,6 +263,24 @@ public class TaskView
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
 	//    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
+	    	
+            //getInput of the checkbox create a column to hold the value
+	    	ColumnModel prevCol = tbModel.getCurrentProject().findColumn(taskModel);
+            ColumnModel colInput = getColumn(cb.getValue());
+            
+            //Check if column Input is the same as the Column of the task passed as Aparameter
+            if(!colInput.equals(prevCol))
+            {
+                tbModel.getCurrentProject().eraseTask(prevCol, taskModel);
+                //colModel.removeTask(taskModel);
+                tbModel.getCurrentProject().addTask(colInput, taskModel);
+      //          this.taskModel.setColumn(colInput);
+                //taskModel.setColumn(colInput);
+                
+            }
+	    	
+	    	
+	    	
 	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
             tbView.load();
 	    });

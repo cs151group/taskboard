@@ -67,6 +67,10 @@ public class ProjectModel {
 		col.addTask(task);
 	}
 	
+	public void eraseTask(ColumnModel col, TaskModel task) {
+        col.removeTask(task);
+	}
+	
 	public ArrayList<ColumnModel> getColumns() {
 		return columns;
 	}
