@@ -1,5 +1,4 @@
 package edu.sjsu.cs151.taskboard;
-import java.time.LocalDate;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import javafx.scene.paint.Color;

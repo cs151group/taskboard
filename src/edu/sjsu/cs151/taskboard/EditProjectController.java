@@ -2,11 +2,6 @@ package edu.sjsu.cs151.taskboard;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 public class EditProjectController implements EventHandler<ActionEvent> {

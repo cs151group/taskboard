@@ -1,24 +1,12 @@
 package edu.sjsu.cs151.taskboard;
 
-import javafx.concurrent.Task;
-import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-//import javafx.geometry.*;
 import javafx.geometry.Insets;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 
 public class ProjectView {

@@ -2,7 +2,6 @@ package edu.sjsu.cs151.taskboard;
 
 import javafx.scene.paint.Color;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

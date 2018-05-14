@@ -3,32 +3,22 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.scene.control.TextArea;
 //import javafx.geometry.*;
 import javafx.geometry.Insets;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
 public class TaskView 
 {
 
 	private Stage primaryStage;
-	private TaskBoardView taskBoardView;
 	private ColumnModel colModel;
 	private TaskModel taskModel = new TaskModel();
 	private TaskBoardModel tbModel;
@@ -52,7 +42,7 @@ public class TaskView
         primaryStage.setTitle("Create New Task");
         
         BorderPane border = new BorderPane();
-        GridPane grid = new GridPane();
+        new GridPane();
         
         border.setCenter(addGridPane());
         
@@ -170,7 +160,7 @@ public class TaskView
     {
     	primaryStage.setTitle("Edit a Task");
         BorderPane border = new BorderPane();
-        GridPane grid = new GridPane();
+        new GridPane();
         
         border.setCenter(addGridPane(taskModel));
         

@@ -1,6 +1,5 @@
 package edu.sjsu.cs151.taskboard;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.InputEvent;
 import javafx.stage.Stage;
