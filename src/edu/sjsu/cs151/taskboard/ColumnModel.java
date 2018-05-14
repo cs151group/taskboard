@@ -1,6 +1,8 @@
 package edu.sjsu.cs151.taskboard;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Comparator;
 
 public class ColumnModel {
 	private String name;
@@ -26,8 +28,17 @@ public class ColumnModel {
 	public void setTasks(ArrayList<TaskModel> tasks) {
 		this.tasks = tasks;
 	}
-	
-	public void addTask(TaskModel task) { tasks.add(task); }
+
+	public void addTask(TaskModel task) {
+		tasks.add(task);
+		tasks.sort(new Comparator<TaskModel>() {
+
+			@Override
+			public int compare(TaskModel o1, TaskModel o2) {
+				return o1.getDueDate().compareTo(o2.getDueDate());
+			}
+		});
+	}
 	
 	public void addTask(String s) {
 		TaskModel newTask = new TaskModel(s);
