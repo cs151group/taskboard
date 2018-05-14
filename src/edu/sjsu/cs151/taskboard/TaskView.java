@@ -280,8 +280,9 @@ public class TaskView
 	    grid.getChildren().add(buttonCancel);
 	    
 	    buttonCancel.setOnMouseClicked(event -> {
-	    	TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
-            tbView.load();
+	    	//TaskBoardView tbView = new TaskBoardView(tbModel, primaryStage);
+	    	primaryStage.close();
+            //tbView.load();
 	    
 	    });
         
