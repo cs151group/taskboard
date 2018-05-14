@@ -14,7 +14,7 @@ public class EditTaskController implements EventHandler<InputEvent> {
 	Stage primary;
 	TaskModel taskModel;
 	TaskBoardModel tbModel;
-	Stage editTaskStage = new Stage();
+	//Stage editTaskStage = new Stage();
 	
 	
 	public EditTaskController(Stage primary, TaskModel taskModel, TaskBoardModel tbModel) {
@@ -25,7 +25,7 @@ public class EditTaskController implements EventHandler<InputEvent> {
 
 	@Override
 	public void handle(InputEvent event) {
-		TaskView taskView = new TaskView(editTaskStage, tbModel);
+		TaskView taskView = new TaskView(primary, tbModel);
 		taskView.load(taskModel, tbModel);
 	}
 	
