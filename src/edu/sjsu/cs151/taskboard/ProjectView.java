@@ -179,18 +179,10 @@ public class ProjectView {
             }
             ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
             tbModel.addProject(currentProject);
-
         }
-        // I commented these two lines out because I think this was the culprit
-        // for the issue where projects would be created when editing columns in a project
-        // leaving here just to see if it causes other issues...otherwise delete.
-
-
-
 
         System.out.println(tbModel.getProjects().size());
         if (tbModel.getProjects().size() <= 1 && !isEditing) {
-
             TaskBoardView newTBView = new TaskBoardView(tbModel, primaryStage);
             newTBView.load();
         } else {
@@ -200,7 +192,6 @@ public class ProjectView {
         isEditing = false;
         System.out.println("isEditing is not true");
     }
-
 
     public AnchorPane addAnchorPane(GridPane grid) {
         AnchorPane anchorpane = new AnchorPane();
