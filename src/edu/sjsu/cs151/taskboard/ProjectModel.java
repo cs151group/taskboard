@@ -56,14 +56,19 @@ public class ProjectModel {
 
 	public void moveLeft(ColumnModel col) {
 		int currentIndex = columns.indexOf(col);
-		int leftIndex = currentIndex - 1;
-		Collections.swap(columns, currentIndex, leftIndex);
+		if (currentIndex > 0) {
+			int leftIndex = currentIndex - 1;
+			Collections.swap(columns, currentIndex, leftIndex);
+		}
 	}
 
 	public void moveRight(ColumnModel col) {
 		int currentIndex = columns.indexOf(col);
-		int rightIndex = currentIndex + 1;
-		Collections.swap(columns, currentIndex, rightIndex);
+		if (currentIndex < columns.size() - 1) {
+			int rightIndex = currentIndex + 1;
+			Collections.swap(columns, currentIndex, rightIndex);
+		}
+
 	}
 
 	// TODO: 5/3/18 How are we calling this function? How will we know which col we are moving task from
