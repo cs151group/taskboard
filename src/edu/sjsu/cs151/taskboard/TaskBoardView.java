@@ -3,6 +3,8 @@ package edu.sjsu.cs151.taskboard;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -79,6 +81,7 @@ public class TaskBoardView {
 				throw new UnsupportedOperationException();
 			}
 		});
+		selectProj.getSelectionModel().selectFirst();
 		
 		Separator topSep = new Separator(Orientation.VERTICAL);
 		
@@ -93,6 +96,16 @@ public class TaskBoardView {
 		deleteProjButton.setOnAction(new DeleteProjectController(primaryStage, model));
 		createProjButton.setOnAction(new CreateProjectController(primaryStage, model.getCurrentProject(), model, this));
 		
+		selectProj.valueProperty().addListener(new ChangeListener<ProjectModel>() {
+
+			@Override
+			public void changed(ObservableValue<? extends ProjectModel> observable,
+					ProjectModel oldValue, ProjectModel newValue) {
+				model.changeCurrProject(newValue);
+				load();
+			}
+		});
+		
 		saveBoardButton.setOnAction(new SaveBoardController(model));
 		loadBoardButton.setOnAction(new LoadBoardController(primaryStage));
 		logOutButton.setOnAction(new LogoutController(primaryStage, model));
@@ -106,6 +119,7 @@ public class TaskBoardView {
 		projItems.getChildren().add(editProjButton);
 		projItems.getChildren().add(deleteProjButton);
 		projItems.getChildren().add(createProjButton);
+		projItems.getChildren().add(selectProj);
 		
 		fileItems.getChildren().add(saveBoardButton);
 		fileItems.getChildren().add(loadBoardButton);

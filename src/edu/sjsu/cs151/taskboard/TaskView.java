@@ -142,7 +142,6 @@ public class TaskView
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
-//	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
 	    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
@@ -229,6 +228,9 @@ public class TaskView
         	cb.getItems().add(name);
         }
         
+    	ColumnModel prevCol = tbModel.getCurrentProject().findColumn(taskModel);
+        cb.setValue(prevCol.getName());
+        
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
 
@@ -237,7 +239,7 @@ public class TaskView
         GridPane.setConstraints(colorPicker, 0, 3);
         grid.getChildren().add(colorPicker);
 
-        ColorPicker cPicker = new ColorPicker();
+        ColorPicker cPicker = new ColorPicker(taskModel.getColor());
         GridPane.setConstraints(cPicker, 1,  3);
         grid.getChildren().add(cPicker);
 
@@ -259,24 +261,19 @@ public class TaskView
 	    	
 	        taskModel.setName(getTextField(nameField));
 	        taskModel.setDescription(getTextField(descriptionArea));
-//	        taskModel.setColumn(getColumn(cb.getValue()));
 	    	taskModel.setDueDate(getDate(checkInDatePicker));
 	    	taskModel.setColor(getColor(cPicker));
-	//    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
+
 	    	
             //getInput of the checkbox create a column to hold the value
-	    	ColumnModel prevCol = tbModel.getCurrentProject().findColumn(taskModel);
             ColumnModel colInput = getColumn(cb.getValue());
             
             //Check if column Input is the same as the Column of the task passed as Aparameter
             if(!colInput.equals(prevCol))
             {
                 tbModel.getCurrentProject().eraseTask(prevCol, taskModel);
-                //colModel.removeTask(taskModel);
                 tbModel.getCurrentProject().addTask(colInput, taskModel);
-      //          this.taskModel.setColumn(colInput);
-                //taskModel.setColumn(colInput);
-                
+
             }
 	    	
 	    	
