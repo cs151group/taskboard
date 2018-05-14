@@ -229,6 +229,9 @@ public class TaskView
         	cb.getItems().add(name);
         }
         
+    	ColumnModel prevCol = tbModel.getCurrentProject().findColumn(taskModel);
+        cb.setValue(prevCol.getName());
+        
         GridPane.setConstraints(cb, 1, 2);
         grid.getChildren().add(cb);
 
@@ -265,7 +268,6 @@ public class TaskView
 	//    	tbModel.getCurrentProject().addTask(getColumn(cb.getValue()), taskModel);
 	    	
             //getInput of the checkbox create a column to hold the value
-	    	ColumnModel prevCol = tbModel.getCurrentProject().findColumn(taskModel);
             ColumnModel colInput = getColumn(cb.getValue());
             
             //Check if column Input is the same as the Column of the task passed as Aparameter
