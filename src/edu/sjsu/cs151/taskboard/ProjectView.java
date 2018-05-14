@@ -182,7 +182,8 @@ public class ProjectView {
         // leaving here just to see if it causes other issues...otherwise delete.
         //ProjectModel currentProject = new ProjectModel(nameField.getText(), colFields);
         //tbModel.addProject(currentProject);
-        
+
+        editingProject.setName(nameField.getText());
         System.out.println(tbModel.getProjects().size());
         if (tbModel.getProjects().size() <= 1) {
             TaskBoardView newTBView = new TaskBoardView(tbModel, primaryStage);
